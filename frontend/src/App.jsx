@@ -107,7 +107,8 @@ function App() {
 
   const fetchHistory = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/expenses?userId=${user.id}`);
+      // 🟢 UPDATED TO RENDER URL
+      const response = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/expenses?userId=${user.id}`);
       setHistory(await response.json());
     } catch (error) { console.error(error); }
   };
@@ -200,7 +201,8 @@ const AuthPage = ({ setUser }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/${isLogin ? 'login' : 'signup'}`, {
+      // 🟢 UPDATED TO RENDER URL
+      const res = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/${isLogin ? 'login' : 'signup'}`, {
         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form),
       });
       const data = await res.json();
@@ -249,12 +251,13 @@ const AuthPage = ({ setUser }) => {
 const Dashboard = ({ user, history, fetchHistory }) => {
   const [form, setForm] = useState({ amount: "", category: "Food", description: "", date: "" });
   const [budget, setBudget] = useState(() => Number(localStorage.getItem("userBudget")) || 10000);
-  const [editingId, setEditingId] = useState(null); // 🌟 NAYA: Edit ke liye state
+  const [editingId, setEditingId] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const method = editingId ? "PUT" : "POST";
-    const url = editingId ? `http://localhost:5000/api/expenses/${editingId}` : "http://localhost:5000/api/expenses";
+    // 🟢 UPDATED TO RENDER URL
+    const url = editingId ? `https://spendio-ai-expense-tracker.onrender.com/api/expenses/${editingId}` : "https://spendio-ai-expense-tracker.onrender.com/api/expenses";
     
     await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, userId: user.id }) });
     setForm({ amount: "", category: "Food", description: "", date: "" });
@@ -262,7 +265,6 @@ const Dashboard = ({ user, history, fetchHistory }) => {
     fetchHistory();
   };
 
-  // 🌟 NAYA: Edit aur Delete Functions Wapas Aa Gaye
   const handleEdit = (item) => {
     const formattedDate = new Date(item.date).toISOString().split("T")[0];
     setForm({ amount: item.amount, category: item.category, description: item.description, date: formattedDate });
@@ -272,11 +274,11 @@ const Dashboard = ({ user, history, fetchHistory }) => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this expense?")) return;
-    await fetch(`http://localhost:5000/api/expenses/${id}`, { method: "DELETE" });
+    // 🟢 UPDATED TO RENDER URL
+    await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/expenses/${id}`, { method: "DELETE" });
     fetchHistory();
   };
 
-  // 🌟 NAYA: Export aur Share Functions
   const handleExportCSV = () => {
     const headers = ["Date", "Category", "Description", "Amount"];
     const rows = history.map(item => [new Date(item.date).toLocaleDateString(), item.category, item.description, item.amount]);
@@ -380,7 +382,7 @@ const Dashboard = ({ user, history, fetchHistory }) => {
           )}
         </div>
 
-        {/* 🌟 NAYA: Recent Transactions List is Back! */}
+        {/* Transactions List */}
         <div className="lg:col-span-3 bg-white/90 p-8 rounded-3xl border border-slate-200 shadow-lg mt-2">
           <h2 className="text-2xl font-black mb-6 text-slate-800 flex items-center gap-2"><span>📋</span> Recent Transactions</h2>
           {history.length > 0 ? (
@@ -422,18 +424,20 @@ const ScanPage = ({ user, fetchHistory }) => {
     const file = e.target.files[0];
     if (!file) return;
     setLoading(true);
-    setResult(null); // Clear old results
+    setResult(null); 
     
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ imageBase64: reader.result }) });
+        // 🟢 UPDATED TO RENDER URL
+        const res = await fetch("https://spendio-ai-expense-tracker.onrender.com/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ imageBase64: reader.result }) });
         if(!res.ok) throw new Error("API failed");
         
         const data = await res.json();
         setResult(data);
-        await fetch('http://localhost:5000/api/expenses', { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, userId: user.id }) });
+        // 🟢 UPDATED TO RENDER URL
+        await fetch('https://spendio-ai-expense-tracker.onrender.com/api/expenses', { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, userId: user.id }) });
         fetchHistory();
       } catch (err) { 
         alert("Scan Failed! Please ensure the image is clear and under 5MB, or check your API key."); 
@@ -501,7 +505,8 @@ const AiPage = ({ user, history }) => {
   const fetchReport = async () => {
     setLoadingInsights(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/insights/${user.id}`);
+      // 🟢 UPDATED TO RENDER URL
+      const res = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/insights/${user.id}`);
       if(!res.ok) throw new Error("API Failed");
       setInsights(await res.json());
     } catch (err) {
@@ -519,7 +524,8 @@ const AiPage = ({ user, history }) => {
     setChat("");
     
     try {
-      const res = await fetch("http://localhost:5000/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q, expenses: history }) });
+      // 🟢 UPDATED TO RENDER URL
+      const res = await fetch("https://spendio-ai-expense-tracker.onrender.com/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q, expenses: history }) });
       if(!res.ok) throw new Error("Chat Failed");
       const data = await res.json();
       setMessages(p => [...p, { role: 'ai', text: data.answer }]);
@@ -597,7 +603,8 @@ const ProfilePage = ({ user, setUser, history, handleLogout }) => {
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/user/${user.id}/profile-pic`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profilePic: reader.result }) });
+        // 🟢 UPDATED TO RENDER URL
+        const res = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/user/${user.id}/profile-pic`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profilePic: reader.result }) });
         if(res.ok) {
           const updatedUser = { ...user, profilePic: reader.result };
           setUser(updatedUser); localStorage.setItem("authUser", JSON.stringify(updatedUser));
