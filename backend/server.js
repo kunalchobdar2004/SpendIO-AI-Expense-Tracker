@@ -6,13 +6,15 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' })); 
 
-// Database Connection
+// ==========================================
+// 🌍 PRODUCTION-READY DATABASE CONNECTION
+// ==========================================
+// Agar live URL (Render par) hai toh wo use hoga, warna aapka local database chalega
+const dbUrl = process.env.DATABASE_URL || "postgresql://postgres:YOUR_PASSWORD@localhost:5432/expense_tracker";
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'expense_tracker',
-    password: 'YOUR_PASSWORD', // Aapka password
-    port: 5432,
+    connectionString: dbUrl,
+    // Live server par SSL zaroori hota hai
+    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
 // Database Setup
@@ -47,11 +49,12 @@ const setupDatabase = async () => {
 setupDatabase();
 
 
-// 🚨 API KEY & LATEST GEMINI 3.x MODELS AUTO-FALLBACK 🚨
-const API_KEY = "YOUR_API_KEY"; 
-
+// ==========================================
+// 🚨 PRODUCTION-READY API KEY 
+// ==========================================
+// Render se API key lega, ya phir local wali chalayega
+const API_KEY = process.env.GEMINI_API_KEY || "YOUR_API_KEY";
 async function callGeminiAPI(bodyData) {
-    // Google ke sabse naye aur stable models ki list jo nayi keys par chalte hain
     const modelsToTry = [
         "gemini-3.6-flash", 
         "gemini-3.5-flash", 
@@ -167,7 +170,7 @@ app.delete('/api/expenses/:id', async (req, res) => {
 });
 
 // ==========================================
-// ✨ AI ROUTES (GEMINI 3.x FALLBACK)
+// ✨ AI ROUTES 
 // ==========================================
 app.get('/api/insights/:userId', async (req, res) => {
     try {
@@ -231,4 +234,6 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
-app.listen(5000, () => console.log('✅ Server running on port 5000 (GEMINI 3.x AUTO-FALLBACK ACTIVE)'));
+// Render apna port khud deta hai `process.env.PORT` ke through
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT} (PRODUCTION READY)`));
