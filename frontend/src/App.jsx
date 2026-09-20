@@ -24,11 +24,11 @@ const GlobalStyles = () => (
     /* 🌟 DARK GLASSMORPHISM CARDS */
     .glass-card {
       background: rgba(15, 23, 42, 0.65) !important;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1) !important;
       color: white !important;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
     }
     .glass-card:hover {
@@ -64,7 +64,7 @@ const ImageBackground = () => (
   }}>
     <div style={{
       position: 'absolute', inset: 0,
-      background: 'linear-gradient(to right, rgba(5,11,20,0.85) 0%, rgba(5,11,20,0.4) 50%, rgba(5,11,20,0.85) 100%)'
+      background: 'linear-gradient(to right, rgba(5,11,20,0.85) 0%, rgba(5,11,20,0.5) 50%, rgba(5,11,20,0.85) 100%)'
     }}></div>
   </div>
 );
@@ -80,7 +80,6 @@ const Header = ({ user, handleLogout }) => {
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl border-b border-transparent transition-all" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 100%)' }}>
-      {/* Subtle Cyan Glowing Bottom Line */}
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto px-6 h-[80px] flex items-center justify-between relative z-10">
@@ -109,7 +108,6 @@ const Header = ({ user, handleLogout }) => {
 // 🌟 UNIQUE MULTI-COLOR BLACK FOOTER
 const Footer = () => (
   <footer className="pt-16 pb-8 mt-auto z-10 relative bg-black">
-    {/* Multi-color glowing top border */}
     <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
     
     <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12 relative z-10">
@@ -213,7 +211,7 @@ const HomePage = ({ user }) => {
         </Link>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8 w-full mb-10 mt-6 relative z-10">
+      <div id="features" className="grid md:grid-cols-3 gap-8 w-full mb-10 mt-6 relative z-10">
         <div className="p-8 rounded-[2rem] glass-card group">
           <div className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 border border-white/20 group-hover:bg-cyan-500 transition-all shadow-lg">📸</div>
           <h3 className="text-xl font-bold mb-3 text-white">One-Tap Scan</h3>
@@ -235,7 +233,7 @@ const HomePage = ({ user }) => {
 };
 
 // =====================================
-// 🌟 NEW PAGE: DEDICATED FEATURES PAGE
+// 🌟 PAGE 2: FEATURES PAGE
 // =====================================
 const FeaturesPage = () => {
   return (
@@ -247,7 +245,6 @@ const FeaturesPage = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Feature 1 */}
         <div className="glass-card p-10 rounded-[2.5rem] group relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-3xl rounded-full group-hover:bg-cyan-500/20 transition-all"></div>
           <div className="w-16 h-16 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-[#050B14] transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)]">📸</div>
@@ -260,7 +257,6 @@ const FeaturesPage = () => {
           </ul>
         </div>
 
-        {/* Feature 2 */}
         <div className="glass-card p-10 rounded-[2.5rem] group relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-3xl rounded-full group-hover:bg-purple-500/20 transition-all"></div>
           <div className="w-16 h-16 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-purple-500/20 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(168,85,247,0.2)]">🤖</div>
@@ -273,7 +269,6 @@ const FeaturesPage = () => {
           </ul>
         </div>
 
-        {/* Feature 3 */}
         <div className="glass-card p-10 rounded-[2.5rem] group relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-3xl rounded-full group-hover:bg-emerald-500/20 transition-all"></div>
           <div className="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]">📈</div>
@@ -286,7 +281,6 @@ const FeaturesPage = () => {
           </ul>
         </div>
 
-        {/* Feature 4 */}
         <div className="glass-card p-10 rounded-[2.5rem] group relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 blur-3xl rounded-full group-hover:bg-red-500/20 transition-all"></div>
           <div className="w-16 h-16 bg-red-500/10 text-red-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-red-500/20 group-hover:bg-red-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(239,68,68,0.2)]">🔐</div>
@@ -358,12 +352,16 @@ const AuthPage = ({ setUser }) => {
 };
 
 // =====================================
-// 📄 PROTECTED PAGE: DASHBOARD
+// 📄 PROTECTED PAGE: DASHBOARD (WITH VOICE ADD FEATURE)
 // =====================================
 const Dashboard = ({ user, history, fetchHistory }) => {
   const [form, setForm] = useState({ amount: "", category: "Food", description: "", date: "" });
   const [budget, setBudget] = useState(() => Number(localStorage.getItem("userBudget")) || 10000);
   const [editingId, setEditingId] = useState(null);
+  
+  // 🌟 NEW: Voice feature state
+  const [isListening, setIsListening] = useState(false);
+  const [isProcessingVoice, setIsProcessingVoice] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -387,6 +385,51 @@ const Dashboard = ({ user, history, fetchHistory }) => {
     if (!window.confirm("Are you sure you want to delete this expense?")) return;
     await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/expenses/${id}`, { method: "DELETE" });
     fetchHistory();
+  };
+
+  // 🌟 NEW: Voice Recognition Logic
+  const handleVoiceInput = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Voice recognition is not supported in your browser. Please try Google Chrome.");
+      return;
+    }
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-IN'; // Allows Hinglish/Indian English
+    
+    recognition.onstart = () => setIsListening(true);
+    
+    recognition.onresult = async (event) => {
+      const transcript = event.results[0][0].transcript;
+      setIsListening(false);
+      setIsProcessingVoice(true);
+      
+      try {
+        const prompt = `Extract expense details from this text: "${transcript}". Reply ONLY with valid JSON exactly like this format: {"amount": number, "category": "Food" | "Transport" | "Utilities" | "Shopping" | "Entertainment", "description": "short string"}. Do not add any extra text or markdown.`;
+        
+        const res = await fetch("https://spendio-ai-expense-tracker.onrender.com/api/chat", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: prompt, expenses: [] })
+        });
+        
+        const data = await res.json();
+        const cleanJson = data.answer.replace(/```json/g, '').replace(/```/g, '').trim();
+        const parsed = JSON.parse(cleanJson);
+        
+        setForm({
+          amount: parsed.amount || "",
+          category: parsed.category || "Food",
+          description: parsed.description || transcript,
+          date: new Date().toISOString().split("T")[0]
+        });
+      } catch(err) {
+        alert("Couldn't parse voice correctly. Please try again or type manually.");
+      }
+      setIsProcessingVoice(false);
+    };
+    
+    recognition.onerror = () => { setIsListening(false); setIsProcessingVoice(false); };
+    recognition.start();
   };
 
   const handleExportCSV = () => {
@@ -423,9 +466,22 @@ const Dashboard = ({ user, history, fetchHistory }) => {
     <div className="grid lg:grid-cols-3 gap-8 animate-fade-up">
       <div className="lg:col-span-1">
         <div className="glass-card p-8 rounded-[2rem] sticky top-28">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-3 text-white">
-            <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">{editingId ? '✏️' : '➕'}</span> 
-            {editingId ? "Edit Expense" : "Add Expense"}
+          <h2 className="text-xl font-bold mb-6 flex items-center justify-between text-white">
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">{editingId ? '✏️' : '➕'}</span> 
+              <span>{editingId ? "Edit Expense" : "Add Expense"}</span>
+            </div>
+            
+            {/* 🌟 NEW: Mic Button for Voice Input */}
+            <button 
+              type="button" 
+              onClick={handleVoiceInput} 
+              disabled={isListening || isProcessingVoice}
+              className={`w-10 h-10 rounded-full flex items-center justify-center text-xl transition-all border ${isListening ? 'bg-red-500 text-white animate-pulse border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.6)]' : isProcessingVoice ? 'bg-cyan-500 text-black border-cyan-500' : 'bg-white/10 text-cyan-400 hover:bg-cyan-500 hover:text-black border-white/20'}`} 
+              title="Click & Speak (e.g. Spent 500 on Uber)"
+            >
+              {isProcessingVoice ? '⏳' : '🎙️'}
+            </button>
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input type="number" required placeholder="Amount (₹)" className="w-full rounded-xl p-4 glass-input font-bold" value={form.amount} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
@@ -461,7 +517,6 @@ const Dashboard = ({ user, history, fetchHistory }) => {
             </div>
           </div>
           
-          {/* Quick Actions (Share & Export) */}
           <div className="glass-card p-8 rounded-[2rem] flex flex-col justify-center">
             <h3 className="font-black text-white mb-4">Quick Actions</h3>
             <div className="space-y-3">
@@ -583,7 +638,7 @@ const ScanPage = ({ user, fetchHistory }) => {
 };
 
 // =====================================
-// 📄 PROTECTED PAGE: AI ADVISOR
+// 📄 PROTECTED PAGE: AI ADVISOR (WITH FORECASTING)
 // =====================================
 const AiPage = ({ user, history }) => {
   const [insights, setInsights] = useState(null);
@@ -621,20 +676,62 @@ const AiPage = ({ user, history }) => {
     }
   };
 
+  // 🌟 NEW: Predictive Forecast Calculation
+  const calculateForecast = () => {
+    if(!history || history.length === 0) return null;
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    
+    const thisMonthExpenses = history.filter(h => {
+      const d = new Date(h.date);
+      return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+    });
+    
+    if(thisMonthExpenses.length === 0) return null;
+    
+    const totalSpent = thisMonthExpenses.reduce((sum, e) => sum + Number(e.amount), 0);
+    const today = new Date().getDate();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    
+    const dailyAvg = totalSpent / today;
+    const projectedTotal = Math.round(dailyAvg * daysInMonth);
+    const budget = Number(localStorage.getItem('userBudget')) || 10000;
+    
+    const isOver = projectedTotal > budget;
+    const difference = Math.abs(projectedTotal - budget);
+    
+    return { projectedTotal, isOver, difference, daysLeft: daysInMonth - today };
+  };
+
+  const forecast = calculateForecast();
+
   return (
-    <div className="grid lg:grid-cols-3 gap-8 h-[75vh] animate-fade-up">
+    <div className="grid lg:grid-cols-3 gap-8 animate-fade-up">
       <div className="lg:col-span-1 glass-card rounded-[2rem] p-8 flex flex-col h-full overflow-y-auto border-t-4 border-t-pink-500">
+        
+        {/* 🌟 NEW: AI Predictive Forecast Widget */}
+        {forecast && (
+          <div className="bg-black/40 p-5 rounded-2xl border border-white/10 shadow-inner mb-8">
+            <h3 className="text-xs font-bold text-cyan-400 uppercase tracking-widest mb-3 flex items-center gap-2"><span>🔮</span> AI Projection</h3>
+            <p className="text-sm text-slate-300 font-medium mb-3">At your current pace, your estimated spend by end of the month will be:</p>
+            <h4 className="text-3xl font-black text-white mb-2">₹{forecast.projectedTotal.toLocaleString()}</h4>
+            <div className={`inline-block px-3 py-1 rounded-lg text-xs font-bold ${forecast.isOver ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}`}>
+              {forecast.isOver ? `Trending ₹${forecast.difference.toLocaleString()} over budget` : `Trending ₹${forecast.difference.toLocaleString()} under budget`}
+            </div>
+          </div>
+        )}
+
         <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-3">
           <span className="bg-white/20 p-2 rounded-xl">✨</span> Smart Report
         </h2>
-        <p className="text-xs text-slate-400 mb-8 uppercase tracking-widest border-b border-white/10 pb-4">AI Analysis of your spending</p>
+        <p className="text-xs text-slate-400 mb-6 uppercase tracking-widest border-b border-white/10 pb-4">AI Analysis of your spending</p>
         
         <button onClick={fetchReport} disabled={loadingInsights} className="w-full bg-pink-500 hover:bg-pink-400 text-white font-bold py-4 rounded-xl mb-6 transition-all shadow-[0_0_15px_rgba(236,72,153,0.3)] disabled:opacity-50">
-          {loadingInsights ? "Crunching Numbers..." : "Generate AI Analysis"}
+          {loadingInsights ? "Crunching Numbers..." : "Generate Report"}
         </button>
         
         {insights && (
-          <div className="space-y-6 flex-1 animate-fade-up mt-4">
+          <div className="space-y-6 flex-1 animate-fade-up mt-2">
             <div className="bg-black/40 p-5 rounded-xl border border-white/10 shadow-inner">
               <p className="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">📊 Monthly Summary</p>
               <p className="text-sm text-slate-300 leading-relaxed font-medium">{insights.summary}</p>
