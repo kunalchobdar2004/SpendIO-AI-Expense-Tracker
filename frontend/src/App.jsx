@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation,
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 // =====================================
-// 🎨 GLOBAL STYLES & ANIMATIONS
+// 🎨 GLOBAL STYLES & DRIBBBLE ANIMATIONS
 // =====================================
 const GlobalStyles = ({ isDark }) => (
   <style>{`
@@ -21,26 +21,28 @@ const GlobalStyles = ({ isDark }) => (
     .animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     .delay-100 { animation-delay: 0.1s; }
     
-    /* 🌟 NEW: Background Animations */
+    /* 🌟 DRIBBBLE STYLE MESH GRADIENT ANIMATIONS */
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob { 
+      animation: blob 12s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); 
+    }
+    .animation-delay-2000 { animation-delay: 2s; }
+    .animation-delay-4000 { animation-delay: 4s; }
+
     @keyframes panGrid {
       0% { background-position: 0 0; }
       100% { background-position: 40px 40px; }
     }
-    @keyframes floatOrb {
-      0%, 100% { transform: translate(0px, 0px) scale(1); }
-      33% { transform: translate(30px, -50px) scale(1.05); }
-      66% { transform: translate(-20px, 20px) scale(0.95); }
-    }
-    
     .bg-grid-animated {
       background-size: 40px 40px;
       background-image: radial-gradient(circle, ${isDark ? '#334155' : '#cbd5e1'} 1.5px, transparent 1.5px) !important;
       animation: panGrid 20s linear infinite;
     }
-    
-    .animate-orb-1 { animation: floatOrb 15s ease-in-out infinite alternate; }
-    .animate-orb-2 { animation: floatOrb 18s ease-in-out infinite alternate-reverse; }
-    .animate-orb-3 { animation: floatOrb 12s ease-in-out infinite alternate; }
 
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -50,7 +52,8 @@ const GlobalStyles = ({ isDark }) => (
     /* 🌙 DARK MODE OVERRIDES */
     ${isDark ? `
       .bg-white, .bg-indigo-50\\/80, .bg-purple-50\\/80, .bg-emerald-50\\/80, .bg-emerald-50\\/90, .bg-blue-50\\/90, .bg-white\\/90, .bg-cyan-50\\/90, .bg-pink-50\\/90, .bg-orange-50\\/90, .bg-rose-50\\/90, .bg-amber-50\\/90, .bg-slate-50 {
-        background-color: #1e293b !important;
+        background-color: rgba(30, 41, 59, 0.8) !important;
+        backdrop-filter: blur(16px);
         border-color: #334155 !important;
       }
       .text-slate-900, .text-slate-800, .text-indigo-900, .text-cyan-900, .text-pink-900, .text-purple-900, .text-emerald-900, .text-orange-950, .text-rose-900, .text-amber-900 {
@@ -64,18 +67,28 @@ const GlobalStyles = ({ isDark }) => (
         color: white !important;
         border-color: #334155 !important;
       }
-      .bg-slate-50 { background-color: #334155 !important; }
-    ` : ''}
+      .bg-slate-50 { background-color: rgba(51, 65, 85, 0.5) !important; }
+    ` : `
+      .bg-white, .bg-indigo-50\\/80, .bg-purple-50\\/80, .bg-emerald-50\\/80, .bg-emerald-50\\/90, .bg-blue-50\\/90, .bg-white\\/90, .bg-cyan-50\\/90, .bg-pink-50\\/90, .bg-orange-50\\/90, .bg-rose-50\\/90, .bg-amber-50\\/90, .bg-slate-50 {
+        background-color: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(12px);
+      }
+    `}
   `}</style>
 );
 
-// 🌟 NEW: Global Animated Background Component
-const AnimatedBackground = ({ isDark }) => (
-  <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+// 🌟 DRIBBBLE STYLE BACKGROUND
+const DribbbleBackground = ({ isDark }) => (
+  <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 transition-colors duration-500" style={{ backgroundColor: isDark ? '#0f172a' : '#f8fafc' }}>
+    {/* Animated Blobs */}
+    <div className={`absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-blob transition-colors duration-1000 ${isDark ? 'bg-indigo-600/40 mix-blend-screen' : 'bg-purple-300'}`}></div>
+    
+    <div className={`absolute top-[-10%] right-[-10%] w-[500px] h-[500px] rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-blob animation-delay-2000 transition-colors duration-1000 ${isDark ? 'bg-pink-600/30 mix-blend-screen' : 'bg-pink-300'}`}></div>
+    
+    <div className={`absolute bottom-[-20%] left-[20%] w-[600px] h-[600px] rounded-full mix-blend-multiply filter blur-[100px] opacity-70 animate-blob animation-delay-4000 transition-colors duration-1000 ${isDark ? 'bg-blue-600/30 mix-blend-screen' : 'bg-indigo-300'}`}></div>
+
+    {/* Subtle Grid Overlay */}
     <div className="absolute inset-0 bg-grid-animated opacity-40"></div>
-    <div className={`animate-orb-1 absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-1000 ${isDark ? 'bg-indigo-900/30' : 'bg-indigo-300/40'}`}></div>
-    <div className={`animate-orb-2 absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full blur-[150px] transition-colors duration-1000 ${isDark ? 'bg-purple-900/30' : 'bg-purple-300/40'}`}></div>
-    <div className={`animate-orb-3 absolute top-[30%] left-[60%] w-[400px] h-[400px] rounded-full blur-[120px] transition-colors duration-1000 ${isDark ? 'bg-pink-900/10' : 'bg-pink-300/20'}`}></div>
   </div>
 );
 
@@ -190,7 +203,7 @@ function App() {
     <Router>
       <GlobalStyles isDark={isDark} />
       <div className="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white relative">
-        <AnimatedBackground isDark={isDark} />
+        <DribbbleBackground isDark={isDark} />
         <Header user={user} handleLogout={handleLogout} isDark={isDark} setIsDark={setIsDark} />
         <main className="flex-grow flex flex-col w-full max-w-7xl mx-auto px-6 py-10 z-10 relative">
           <Routes>
@@ -232,17 +245,17 @@ const HomePage = ({ user }) => {
       </div>
 
       <div id="features" className="grid md:grid-cols-3 gap-8 w-full relative z-10 mb-20 mt-10">
-        <div className="bg-indigo-50/80 backdrop-blur-lg p-10 rounded-3xl border border-indigo-100 shadow-xl shadow-indigo-200/50 hover:shadow-2xl transition-all hover:-translate-y-2">
+        <div className="bg-indigo-50/80 p-10 rounded-3xl border border-indigo-100 shadow-xl shadow-indigo-200/50 hover:shadow-2xl transition-all hover:-translate-y-2">
           <div className="w-16 h-16 bg-white text-indigo-600 rounded-2xl flex items-center justify-center text-3xl mb-6 font-bold shadow-md">📸</div>
           <h3 className="text-2xl font-black mb-3 text-slate-900">One-Tap Scan</h3>
           <p className="text-slate-600 leading-relaxed font-medium">Just upload a picture of your bill. Gemini AI will instantly read and save the exact amount.</p>
         </div>
-        <div className="bg-purple-50/80 backdrop-blur-lg p-10 rounded-3xl border border-purple-100 shadow-xl shadow-purple-200/50 hover:shadow-2xl transition-all hover:-translate-y-2">
+        <div className="bg-purple-50/80 p-10 rounded-3xl border border-purple-100 shadow-xl shadow-purple-200/50 hover:shadow-2xl transition-all hover:-translate-y-2">
           <div className="w-16 h-16 bg-white text-purple-600 rounded-2xl flex items-center justify-center text-3xl mb-6 font-bold shadow-md">🤖</div>
           <h3 className="text-2xl font-black mb-3 text-slate-900">AI Assistant</h3>
           <p className="text-slate-600 leading-relaxed font-medium">Ask questions like "How much did I spend on food this month?" and get an instant AI reply.</p>
         </div>
-        <div className="bg-emerald-50/80 backdrop-blur-lg p-10 rounded-3xl border border-emerald-100 shadow-xl shadow-emerald-200/50 hover:shadow-2xl transition-all hover:-translate-y-2">
+        <div className="bg-emerald-50/80 p-10 rounded-3xl border border-emerald-100 shadow-xl shadow-emerald-200/50 hover:shadow-2xl transition-all hover:-translate-y-2">
           <div className="w-16 h-16 bg-white text-emerald-600 rounded-2xl flex items-center justify-center text-3xl mb-6 font-bold shadow-md">📈</div>
           <h3 className="text-2xl font-black mb-3 text-slate-900">Visual Insights</h3>
           <p className="text-slate-600 leading-relaxed font-medium">Beautiful color-coded charts and budget trackers make understanding your finances effortless.</p>
@@ -373,7 +386,7 @@ const Dashboard = ({ user, history, fetchHistory }) => {
   return (
     <div className="grid lg:grid-cols-3 gap-8 animate-fade-up relative z-10">
       <div className="lg:col-span-1 flex flex-col gap-6">
-        <div className={`backdrop-blur-md p-8 rounded-3xl border shadow-lg ${editingId ? 'bg-amber-50/90 border-amber-200' : 'bg-indigo-50/90 border-indigo-100'}`}>
+        <div className={`p-8 rounded-3xl border shadow-lg ${editingId ? 'bg-amber-50/90 border-amber-200' : 'bg-indigo-50/90 border-indigo-100'}`}>
           <h2 className={`text-2xl font-black mb-6 flex items-center gap-3 ${editingId ? 'text-amber-900' : 'text-indigo-900'}`}>
             <span className="bg-white p-2 rounded-xl shadow-sm">{editingId ? '✏️' : '➕'}</span> 
             {editingId ? "Edit Expense" : "Add Expense"}
