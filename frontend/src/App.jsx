@@ -3,13 +3,16 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation,
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
 // =====================================
-// 🎨 GLOBAL STYLES
+// 🎨 GLOBAL STYLES (ADDED DARK MODE LOGIC)
 // =====================================
-const GlobalStyles = () => (
+const GlobalStyles = ({ isDark }) => (
   <style>{`
     body, html {
       margin: 0; padding: 0; width: 100%; min-height: 100%;
-      background-color: #f8fafc; color: #1e293b; font-family: 'Inter', sans-serif;
+      background-color: ${isDark ? '#0f172a' : '#f8fafc'};
+      color: ${isDark ? '#f8fafc' : '#1e293b'};
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -17,21 +20,42 @@ const GlobalStyles = () => (
     }
     .animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     .delay-100 { animation-delay: 0.1s; }
+    
     .bg-grid-pattern {
       background-size: 40px 40px;
-      background-image: radial-gradient(circle, #cbd5e1 1.5px, transparent 1.5px);
+      background-image: radial-gradient(circle, ${isDark ? '#334155' : '#cbd5e1'} 1.5px, transparent 1.5px) !important;
     }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    ::-webkit-scrollbar-thumb { background: ${isDark ? '#475569' : '#cbd5e1'}; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: ${isDark ? '#64748b' : '#94a3b8'}; }
+
+    /* 🌙 DARK MODE OVERRIDES (Aapka original code bina change kiye cards ko dark banayega) */
+    ${isDark ? `
+      .bg-white, .bg-indigo-50\\/80, .bg-purple-50\\/80, .bg-emerald-50\\/80, .bg-emerald-50\\/90, .bg-blue-50\\/90, .bg-white\\/90, .bg-cyan-50\\/90, .bg-pink-50\\/90, .bg-orange-50\\/90, .bg-rose-50\\/90, .bg-amber-50\\/90, .bg-slate-50 {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+      }
+      .text-slate-900, .text-slate-800, .text-indigo-900, .text-cyan-900, .text-pink-900, .text-purple-900, .text-emerald-900, .text-orange-950, .text-rose-900, .text-amber-900 {
+        color: #f8fafc !important;
+      }
+      .text-slate-600, .text-slate-500, .text-cyan-700 {
+        color: #94a3b8 !important;
+      }
+      input, select {
+        background-color: #0f172a !important;
+        color: white !important;
+        border-color: #334155 !important;
+      }
+      .bg-slate-50 { background-color: #334155 !important; }
+    ` : ''}
   `}</style>
 );
 
 // =====================================
 // 🎨 COMPONENTS: HEADER & FOOTER
 // =====================================
-const Header = ({ user, handleLogout }) => {
+const Header = ({ user, handleLogout, isDark, setIsDark }) => {
   const location = useLocation();
   const publicLinks = [{ name: "Home", path: "/" }, { name: "Features", path: "/#features" }, { name: "FAQ", path: "/faq" }];
   const privateLinks = [{ name: "Dashboard", path: "/dashboard" }, { name: "Scan Bill", path: "/scan" }, { name: "AI Advisor", path: "/ai" }];
@@ -44,13 +68,19 @@ const Header = ({ user, handleLogout }) => {
           <div className="w-12 h-12 rounded-xl bg-white text-indigo-700 flex items-center justify-center font-black text-2xl shadow-lg group-hover:scale-110 transition-transform">S</div>
           <span className="text-3xl font-black tracking-tight drop-shadow-md">SpendIO</span>
         </Link>
-        <nav className="hidden md:flex gap-8 items-center">
+        <nav className="hidden md:flex gap-6 items-center">
           {links.map(link => (
             <Link key={link.name} to={link.path} className={`font-bold transition-all duration-300 hover:-translate-y-0.5 px-3 py-2 rounded-lg ${location.pathname === link.path ? 'bg-white/20 shadow-inner' : 'text-indigo-100 hover:text-white hover:bg-white/10'}`}>
               {link.name}
             </Link>
           ))}
-          {!user && <Link to="/auth" className="ml-4 bg-white text-indigo-700 px-8 py-3 rounded-xl font-black hover:bg-indigo-50 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all">Sign In</Link>}
+          
+          {/* 🌙 Dark Mode Toggle Button */}
+          <button onClick={() => setIsDark(!isDark)} className="ml-2 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all text-xl" title="Toggle Dark Mode">
+            {isDark ? '☀️' : '🌙'}
+          </button>
+
+          {!user && <Link to="/auth" className="ml-2 bg-white text-indigo-700 px-8 py-3 rounded-xl font-black hover:bg-indigo-50 hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all">Sign In</Link>}
         </nav>
         {user && (
           <Link to="/profile" className="w-12 h-12 rounded-full bg-white text-indigo-700 font-black flex items-center justify-center shadow-lg transition-all cursor-pointer hover:scale-110 hover:ring-4 ring-white/30 text-xl overflow-hidden border-2 border-white">
@@ -62,33 +92,38 @@ const Header = ({ user, handleLogout }) => {
   );
 };
 
-const Footer = () => (
-  <footer className="bg-slate-900 text-slate-300 pt-16 pb-8 border-t-8 border-indigo-500 mt-auto z-10 relative">
-    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+// 🌟 UNIQUE PREMIUM FOOTER
+const Footer = ({ isDark }) => (
+  <footer className={`${isDark ? 'bg-[#0b0f19]' : 'bg-slate-900'} text-slate-300 pt-16 pb-8 mt-auto z-10 relative overflow-hidden`}>
+    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
+    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12 relative z-10">
       <div className="col-span-1 md:col-span-2">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 rounded bg-indigo-500 flex items-center justify-center text-white font-bold">S</div>
-          <span className="text-2xl font-black text-white">SpendIO</span>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-lg">S</div>
+          <span className="text-3xl font-black text-white tracking-tight">Spend<span className="text-purple-400">IO</span></span>
         </div>
         <p className="text-slate-400 leading-relaxed max-w-sm">The world's smartest AI-powered expense tracker. Take control of your financial future by letting AI do the heavy lifting.</p>
       </div>
       <div>
         <h4 className="text-white font-bold mb-4 text-lg">Product</h4>
         <ul className="space-y-3">
-          <li className="hover:text-indigo-400 cursor-pointer transition-colors">Features</li>
-          <li className="hover:text-indigo-400 cursor-pointer transition-colors">API Access</li>
+          <li className="hover:text-purple-400 cursor-pointer transition-colors">Features</li>
+          <li className="hover:text-purple-400 cursor-pointer transition-colors">API Access</li>
+          <li className="hover:text-purple-400 cursor-pointer transition-colors">Pricing</li>
         </ul>
       </div>
       <div>
         <h4 className="text-white font-bold mb-4 text-lg">Company</h4>
         <ul className="space-y-3">
-          <li className="hover:text-indigo-400 cursor-pointer transition-colors">About Us</li>
-          <li className="hover:text-indigo-400 cursor-pointer transition-colors">Privacy Policy</li>
+          <li className="hover:text-purple-400 cursor-pointer transition-colors">About Us</li>
+          <li className="hover:text-purple-400 cursor-pointer transition-colors">Privacy Policy</li>
+          <li className="hover:text-purple-400 cursor-pointer transition-colors">Contact Support</li>
         </ul>
       </div>
     </div>
-    <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-800 text-center text-slate-500 font-medium">
+    <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-slate-500 font-medium">
       <p>© 2026 SpendIO Technologies Inc. All rights reserved.</p>
+      <p className="mt-4 md:mt-0 flex items-center gap-1">Made with <span className="text-red-500">❤️</span> by Kunal</p>
     </div>
   </footer>
 );
@@ -103,11 +138,19 @@ function App() {
   });
   const [history, setHistory] = useState([]);
   
+  // 🌙 DARK MODE STATE
+  const [isDark, setIsDark] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', isDark);
+  }, [isDark]);
+  
   useEffect(() => { if (user) fetchHistory(); }, [user]);
 
   const fetchHistory = async () => {
     try {
-      // 🟢 UPDATED TO RENDER URL
       const response = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/expenses?userId=${user.id}`);
       setHistory(await response.json());
     } catch (error) { console.error(error); }
@@ -121,9 +164,9 @@ function App() {
 
   return (
     <Router>
-      <GlobalStyles />
+      <GlobalStyles isDark={isDark} />
       <div className="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white relative">
-        <Header user={user} handleLogout={handleLogout} />
+        <Header user={user} handleLogout={handleLogout} isDark={isDark} setIsDark={setIsDark} />
         <main className="flex-grow flex flex-col w-full max-w-7xl mx-auto px-6 py-10 z-10 relative">
           <Routes>
             <Route path="/" element={<HomePage user={user} />} />
@@ -135,7 +178,7 @@ function App() {
             <Route path="/profile" element={user ? <ProfilePage user={user} setUser={setUser} history={history} handleLogout={handleLogout} /> : <Navigate to="/auth" />} />
           </Routes>
         </main>
-        <Footer />
+        <Footer isDark={isDark} />
       </div>
     </Router>
   );
@@ -148,8 +191,8 @@ const HomePage = ({ user }) => {
   return (
     <div className="flex flex-col items-center justify-center animate-fade-up relative w-full h-full">
       <div className="fixed top-0 left-0 w-full h-full bg-grid-pattern -z-10 opacity-[0.4] pointer-events-none"></div>
-      <div className="fixed top-[-20%] left-[-10%] w-[500px] h-[500px] bg-indigo-300/40 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
-      <div className="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-300/40 rounded-full blur-[150px] -z-10 pointer-events-none"></div>
+      <div className="fixed top-[-20%] left-[-10%] w-[500px] h-[500px] bg-indigo-300/30 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+      <div className="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-300/30 rounded-full blur-[150px] -z-10 pointer-events-none"></div>
 
       <div className="text-center max-w-5xl mx-auto pt-16 pb-16 relative z-10">
         <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-indigo-100 border border-indigo-200 text-indigo-700 font-bold mb-8 shadow-sm">
@@ -201,7 +244,6 @@ const AuthPage = ({ setUser }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // 🟢 UPDATED TO RENDER URL
       const res = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/${isLogin ? 'login' : 'signup'}`, {
         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form),
       });
@@ -246,7 +288,7 @@ const AuthPage = ({ setUser }) => {
 };
 
 // =====================================
-// 📄 PROTECTED PAGE: DASHBOARD (WITH EDIT/DELETE & EXPORT)
+// 📄 PROTECTED PAGE: DASHBOARD 
 // =====================================
 const Dashboard = ({ user, history, fetchHistory }) => {
   const [form, setForm] = useState({ amount: "", category: "Food", description: "", date: "" });
@@ -256,7 +298,6 @@ const Dashboard = ({ user, history, fetchHistory }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const method = editingId ? "PUT" : "POST";
-    // 🟢 UPDATED TO RENDER URL
     const url = editingId ? `https://spendio-ai-expense-tracker.onrender.com/api/expenses/${editingId}` : "https://spendio-ai-expense-tracker.onrender.com/api/expenses";
     
     await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, userId: user.id }) });
@@ -274,7 +315,6 @@ const Dashboard = ({ user, history, fetchHistory }) => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this expense?")) return;
-    // 🟢 UPDATED TO RENDER URL
     await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/expenses/${id}`, { method: "DELETE" });
     fetchHistory();
   };
@@ -430,13 +470,11 @@ const ScanPage = ({ user, fetchHistory }) => {
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
       try {
-        // 🟢 UPDATED TO RENDER URL
         const res = await fetch("https://spendio-ai-expense-tracker.onrender.com/api/scan", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ imageBase64: reader.result }) });
         if(!res.ok) throw new Error("API failed");
         
         const data = await res.json();
         setResult(data);
-        // 🟢 UPDATED TO RENDER URL
         await fetch('https://spendio-ai-expense-tracker.onrender.com/api/expenses', { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...data, userId: user.id }) });
         fetchHistory();
       } catch (err) { 
@@ -505,7 +543,6 @@ const AiPage = ({ user, history }) => {
   const fetchReport = async () => {
     setLoadingInsights(true);
     try {
-      // 🟢 UPDATED TO RENDER URL
       const res = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/insights/${user.id}`);
       if(!res.ok) throw new Error("API Failed");
       setInsights(await res.json());
@@ -524,7 +561,6 @@ const AiPage = ({ user, history }) => {
     setChat("");
     
     try {
-      // 🟢 UPDATED TO RENDER URL
       const res = await fetch("https://spendio-ai-expense-tracker.onrender.com/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q, expenses: history }) });
       if(!res.ok) throw new Error("Chat Failed");
       const data = await res.json();
@@ -603,7 +639,6 @@ const ProfilePage = ({ user, setUser, history, handleLogout }) => {
     reader.readAsDataURL(file);
     reader.onloadend = async () => {
       try {
-        // 🟢 UPDATED TO RENDER URL
         const res = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/user/${user.id}/profile-pic`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profilePic: reader.result }) });
         if(res.ok) {
           const updatedUser = { ...user, profilePic: reader.result };
