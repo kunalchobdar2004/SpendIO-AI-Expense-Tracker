@@ -24,11 +24,11 @@ const GlobalStyles = () => (
     /* 🌟 DARK GLASSMORPHISM CARDS */
     .glass-card {
       background: rgba(15, 23, 42, 0.65) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.1) !important;
       color: white !important;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
       transition: all 0.3s ease;
     }
     .glass-card:hover {
@@ -64,37 +64,40 @@ const ImageBackground = () => (
   }}>
     <div style={{
       position: 'absolute', inset: 0,
-      background: 'linear-gradient(to right, rgba(5,11,20,0.85) 0%, rgba(5,11,20,0.5) 50%, rgba(5,11,20,0.85) 100%)'
+      background: 'linear-gradient(to right, rgba(5,11,20,0.85) 0%, rgba(5,11,20,0.4) 50%, rgba(5,11,20,0.85) 100%)'
     }}></div>
   </div>
 );
 
 // =====================================
-// 🎨 COMPONENTS: HEADER & FOOTER
+// 🎨 UNIQUE PREMIUM HEADER
 // =====================================
 const Header = ({ user, handleLogout }) => {
   const location = useLocation();
-  const publicLinks = [{ name: "Home", path: "/" }, { name: "Features", path: "/#features" }, { name: "FAQ", path: "/faq" }];
-  const privateLinks = [{ name: "Dashboard", path: "/dashboard" }, { name: "Scan Bill", path: "/scan" }, { name: "AI Advisor", path: "/ai" }];
+  const publicLinks = [{ name: "Home", path: "/" }, { name: "Features", path: "/features" }, { name: "FAQ", path: "/faq" }];
+  const privateLinks = [{ name: "Dashboard", path: "/dashboard" }, { name: "Features", path: "/features" }, { name: "Scan Bill", path: "/scan" }, { name: "AI Advisor", path: "/ai" }];
   const links = user ? privateLinks : publicLinks;
 
   return (
-    <header className="sticky top-0 z-50 shadow-lg border-b border-white/10" style={{ background: 'rgba(5, 11, 20, 0.8)', backdropFilter: 'blur(12px)' }}>
-      <div className="max-w-7xl mx-auto px-6 h-[80px] flex items-center justify-between">
+    <header className="sticky top-0 z-50 backdrop-blur-xl border-b border-transparent transition-all" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 100%)' }}>
+      {/* Subtle Cyan Glowing Bottom Line */}
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+      
+      <div className="max-w-7xl mx-auto px-6 h-[80px] flex items-center justify-between relative z-10">
         <Link to="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 text-white flex items-center justify-center font-black text-xl shadow-[0_0_15px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform">S</div>
-          <span className="text-2xl font-black tracking-tight text-white">SpendIO</span>
+          <span className="text-2xl font-black tracking-tight text-white drop-shadow-md">SpendIO</span>
         </Link>
         <nav className="hidden md:flex gap-6 items-center">
           {links.map(link => (
-            <Link key={link.name} to={link.path} className={`font-bold transition-all duration-300 hover:-translate-y-0.5 px-3 py-2 rounded-lg ${location.pathname === link.path ? 'bg-white/10 text-cyan-400' : 'text-slate-300 hover:text-white hover:bg-white/5'}`}>
+            <Link key={link.name} to={link.path} className={`font-bold transition-all duration-300 hover:-translate-y-0.5 px-3 py-2 rounded-lg ${location.pathname === link.path ? 'bg-white/10 text-cyan-400 shadow-inner' : 'text-slate-300 hover:text-white hover:bg-white/5'}`}>
               {link.name}
             </Link>
           ))}
-          {!user && <Link to="/auth" className="ml-4 bg-white/10 border border-white/20 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-cyan-500 hover:border-cyan-500 transition-all">Sign In</Link>}
+          {!user && <Link to="/auth" className="ml-4 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-6 py-2.5 rounded-xl font-bold hover:bg-cyan-500 hover:text-[#050B14] hover:shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all">Sign In</Link>}
         </nav>
         {user && (
-          <Link to="/profile" className="w-10 h-10 rounded-full bg-slate-800 text-cyan-400 font-bold flex items-center justify-center border-2 border-white/20 hover:border-cyan-400 transition-all cursor-pointer overflow-hidden shadow-lg">
+          <Link to="/profile" className="w-10 h-10 rounded-full bg-slate-800 text-cyan-400 font-bold flex items-center justify-center border-2 border-white/20 hover:border-cyan-400 transition-all cursor-pointer overflow-hidden shadow-[0_0_10px_rgba(255,255,255,0.1)]">
             {user.profilePic ? <img src={user.profilePic} className="w-full h-full object-cover" alt="Profile" /> : user.name.charAt(0).toUpperCase()}
           </Link>
         )}
@@ -107,7 +110,7 @@ const Header = ({ user, handleLogout }) => {
 const Footer = () => (
   <footer className="pt-16 pb-8 mt-auto z-10 relative bg-black">
     {/* Multi-color glowing top border */}
-    <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+    <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
     
     <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12 relative z-10">
       <div className="col-span-1 md:col-span-2">
@@ -120,7 +123,7 @@ const Footer = () => (
       <div>
         <h4 className="text-white font-bold mb-4 text-sm tracking-widest uppercase opacity-80">Product</h4>
         <ul className="space-y-3 font-medium text-slate-400">
-          <li className="hover:text-white cursor-pointer transition-colors">Features</li>
+          <li><Link to="/features" className="hover:text-white cursor-pointer transition-colors">Features</Link></li>
           <li className="hover:text-white cursor-pointer transition-colors">API Access</li>
         </ul>
       </div>
@@ -173,6 +176,7 @@ function App() {
         <main className="flex-grow w-full max-w-7xl mx-auto px-6 py-10 z-10">
           <Routes>
             <Route path="/" element={<HomePage user={user} />} />
+            <Route path="/features" element={<FeaturesPage />} />
             <Route path="/auth" element={!user ? <AuthPage setUser={setUser} /> : <Navigate to="/dashboard" />} />
             <Route path="/dashboard" element={user ? <Dashboard user={user} history={history} fetchHistory={fetchHistory} /> : <Navigate to="/auth" />} />
             <Route path="/scan" element={user ? <ScanPage user={user} fetchHistory={fetchHistory} /> : <Navigate to="/auth" />} />
@@ -209,7 +213,7 @@ const HomePage = ({ user }) => {
         </Link>
       </div>
 
-      <div id="features" className="grid md:grid-cols-3 gap-8 w-full mb-10 mt-6 relative z-10">
+      <div className="grid md:grid-cols-3 gap-8 w-full mb-10 mt-6 relative z-10">
         <div className="p-8 rounded-[2rem] glass-card group">
           <div className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 border border-white/20 group-hover:bg-cyan-500 transition-all shadow-lg">📸</div>
           <h3 className="text-xl font-bold mb-3 text-white">One-Tap Scan</h3>
@@ -231,7 +235,76 @@ const HomePage = ({ user }) => {
 };
 
 // =====================================
-// 🔐 PAGE 2: AUTH PAGE
+// 🌟 NEW PAGE: DEDICATED FEATURES PAGE
+// =====================================
+const FeaturesPage = () => {
+  return (
+    <div className="max-w-6xl mx-auto w-full py-12 animate-fade-up">
+      <div className="text-center mb-16 relative">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-cyan-500/20 blur-[100px] rounded-full pointer-events-none"></div>
+        <h1 className="text-5xl font-black text-white mb-6 tracking-tight relative z-10">Powerful Features</h1>
+        <p className="text-slate-400 font-medium text-lg max-w-2xl mx-auto relative z-10">Everything you need to master your personal finances without the hassle of manual spreadsheets.</p>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Feature 1 */}
+        <div className="glass-card p-10 rounded-[2.5rem] group relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-3xl rounded-full group-hover:bg-cyan-500/20 transition-all"></div>
+          <div className="w-16 h-16 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-[#050B14] transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)]">📸</div>
+          <h3 className="text-3xl font-black mb-4 text-white">Smart Vision Scanner</h3>
+          <p className="text-slate-400 font-medium leading-relaxed mb-6">Powered by Google Gemini Vision. Simply point your camera at any receipt, and our AI will automatically detect the total amount and categorize the expense. No more typing.</p>
+          <ul className="space-y-2 text-sm font-bold text-slate-300">
+            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> Supports JPG & PNG (up to 5MB)</li>
+            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> Auto-detects Categories</li>
+            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> Error-free numeric extraction</li>
+          </ul>
+        </div>
+
+        {/* Feature 2 */}
+        <div className="glass-card p-10 rounded-[2.5rem] group relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-3xl rounded-full group-hover:bg-purple-500/20 transition-all"></div>
+          <div className="w-16 h-16 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-purple-500/20 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(168,85,247,0.2)]">🤖</div>
+          <h3 className="text-3xl font-black mb-4 text-white">Conversational AI Chatbot</h3>
+          <p className="text-slate-400 font-medium leading-relaxed mb-6">Talk to your data naturally. Our integrated AI analyzes your entire database to answer specific queries instantly. It's like having a financial advisor in your pocket.</p>
+          <ul className="space-y-2 text-sm font-bold text-slate-300">
+            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> "How much did I spend on cabs?"</li>
+            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> "What is my highest category?"</li>
+            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> Dynamic Monthly Reports</li>
+          </ul>
+        </div>
+
+        {/* Feature 3 */}
+        <div className="glass-card p-10 rounded-[2.5rem] group relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-3xl rounded-full group-hover:bg-emerald-500/20 transition-all"></div>
+          <div className="w-16 h-16 bg-emerald-500/10 text-emerald-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]">📈</div>
+          <h3 className="text-3xl font-black mb-4 text-white">Visual Analytics</h3>
+          <p className="text-slate-400 font-medium leading-relaxed mb-6">Understand your cash flow at a glance. We provide real-time beautiful pie charts and an intuitive budget tracker to keep you within your limits.</p>
+          <ul className="space-y-2 text-sm font-bold text-slate-300">
+            <li className="flex items-center gap-2"><span className="text-emerald-400">✓</span> Category-wise breakdowns</li>
+            <li className="flex items-center gap-2"><span className="text-emerald-400">✓</span> Dynamic Progress Bars</li>
+            <li className="flex items-center gap-2"><span className="text-emerald-400">✓</span> Warning indicators for overspending</li>
+          </ul>
+        </div>
+
+        {/* Feature 4 */}
+        <div className="glass-card p-10 rounded-[2.5rem] group relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 blur-3xl rounded-full group-hover:bg-red-500/20 transition-all"></div>
+          <div className="w-16 h-16 bg-red-500/10 text-red-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-red-500/20 group-hover:bg-red-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(239,68,68,0.2)]">🔐</div>
+          <h3 className="text-3xl font-black mb-4 text-white">Secure Cloud Storage</h3>
+          <p className="text-slate-400 font-medium leading-relaxed mb-6">Your data belongs to you. Every expense is securely encrypted and stored in a private PostgreSQL database, accessible only via your secure login.</p>
+          <ul className="space-y-2 text-sm font-bold text-slate-300">
+            <li className="flex items-center gap-2"><span className="text-red-400">✓</span> Enterprise-grade PostgreSQL</li>
+            <li className="flex items-center gap-2"><span className="text-red-400">✓</span> One-Click CSV Export</li>
+            <li className="flex items-center gap-2"><span className="text-red-400">✓</span> Family Sharing capabilities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// =====================================
+// 🔐 PAGE 3: AUTH PAGE
 // =====================================
 const AuthPage = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -256,20 +329,22 @@ const AuthPage = ({ setUser }) => {
 
   return (
     <div className="w-full flex items-center justify-center min-h-[70vh] relative z-20">
-      <div className="w-full max-w-md p-10 rounded-[2rem] glass-card animate-fade-up">
-        
-        <div className="text-center mb-8">
+      <div className="w-full max-w-md p-10 rounded-[2rem] glass-card animate-fade-up relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/20 blur-[50px] rounded-full"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-cyan-500/20 blur-[50px] rounded-full"></div>
+
+        <div className="text-center mb-8 relative z-10">
           <div className="w-16 h-16 mx-auto bg-gradient-to-br from-cyan-500 to-blue-500 text-white rounded-2xl flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.4)] font-black text-3xl mb-6">S</div>
-          <h2 className="text-3xl font-black text-white">{isLogin ? "Welcome back!" : "Create an account"}</h2>
+          <h2 className="text-3xl font-black text-white">{isLogin ? "Welcome Back" : "Create Account"}</h2>
           <p className="text-slate-400 font-medium text-sm mt-2">Enter your details below to continue.</p>
         </div>
         
-        <div className="flex bg-black/40 p-1.5 rounded-xl mb-8 border border-white/5">
+        <div className="flex bg-black/40 p-1.5 rounded-xl mb-8 relative z-10 border border-white/5">
           <button onClick={() => setIsLogin(true)} className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-sm ${isLogin ? 'bg-white/10 text-white shadow-md border border-white/10' : 'text-slate-500 hover:text-white'}`}>Log In</button>
           <button onClick={() => setIsLogin(false)} className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-sm ${!isLogin ? 'bg-white/10 text-white shadow-md border border-white/10' : 'text-slate-500 hover:text-white'}`}>Sign Up</button>
         </div>
         
-        <form onSubmit={submit} className="space-y-4">
+        <form onSubmit={submit} className="space-y-4 relative z-10">
           {!isLogin && <input type="text" required placeholder="Full Name" className="w-full rounded-xl py-4 px-5 glass-input" onChange={e=>setForm({...form, name:e.target.value})} />}
           <input type="email" required placeholder="Email Address" className="w-full rounded-xl py-4 px-5 glass-input" onChange={e=>setForm({...form, email:e.target.value})} />
           <input type="password" required placeholder="Password" className="w-full rounded-xl py-4 px-5 glass-input" onChange={e=>setForm({...form, password:e.target.value})} />
@@ -361,7 +436,7 @@ const Dashboard = ({ user, history, fetchHistory }) => {
             <input type="date" required className="w-full rounded-xl p-4 glass-input text-slate-300" style={{ colorScheme: 'dark' }} value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
             
             <div className="flex gap-3 mt-6">
-              <button type="submit" className={`flex-1 text-white font-black py-4 rounded-xl shadow-lg transition-all ${editingId ? 'bg-orange-500 hover:bg-orange-400' : 'bg-cyan-500 hover:bg-cyan-400 text-slate-900'}`}>
+              <button type="submit" className={`flex-1 text-white font-black py-4 rounded-xl shadow-lg transition-all ${editingId ? 'bg-red-500 hover:bg-red-400' : 'bg-cyan-500 hover:bg-cyan-400 text-slate-900'}`}>
                 {editingId ? "Update" : "Save"}
               </button>
               {editingId && (
@@ -377,12 +452,12 @@ const Dashboard = ({ user, history, fetchHistory }) => {
           <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden">
             <div className="flex justify-between items-start mb-4 relative z-10">
               <p className="text-xs font-bold uppercase tracking-widest text-cyan-400">Monthly Target</p>
-              <button onClick={() => { const b = prompt("Update Budget Limit:", budget); if(b && !isNaN(b)) { setBudget(Number(b)); localStorage.setItem("userBudget", Number(b)); } }} className="text-xs bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/20 transition-colors">Edit Budget</button>
+              <button onClick={() => { const b = prompt("Update Budget Limit:", budget); if(b && !isNaN(b)) { setBudget(Number(b)); localStorage.setItem("userBudget", Number(b)); } }} className="text-xs bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/20 transition-colors">Edit Limit</button>
             </div>
             <h3 className="text-5xl font-black text-white relative z-10">₹{totalExpenses.toLocaleString()}</h3>
             <p className="text-slate-400 font-medium mt-2 relative z-10">of ₹{budget.toLocaleString()} limit</p>
             <div className="w-full h-2 rounded-full mt-6 bg-black/50 border border-white/10 relative z-10 overflow-hidden">
-              <div className={`h-full rounded-full transition-all duration-1000 ${budgetPercentage > 90 ? "bg-red-500" : "bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]"}`} style={{ width: `${Math.min(budgetPercentage, 100)}%` }}></div>
+              <div className={`h-full rounded-full transition-all duration-1000 ${budgetPercentage > 90 ? "bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]" : "bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]"}`} style={{ width: `${Math.min(budgetPercentage, 100)}%` }}></div>
             </div>
           </div>
           
@@ -487,7 +562,7 @@ const ScanPage = ({ user, fetchHistory }) => {
             ) : (
               <>
                 <p className="text-7xl mb-6 group-hover:scale-110 transition-transform">📄</p>
-                <label className="bg-white text-slate-900 text-base font-bold px-8 py-4 rounded-xl cursor-pointer hover:bg-cyan-400 hover:scale-105 transition-all block">
+                <label className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-base font-bold px-8 py-4 rounded-xl cursor-pointer hover:scale-105 transition-all block">
                   Select File
                   <input type="file" accept="image/*" onChange={handleUpload} className="hidden" />
                 </label>
@@ -582,7 +657,7 @@ const AiPage = ({ user, history }) => {
         <div className="p-5 border-b border-white/10 bg-white/5 flex items-center gap-4">
           <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center border border-cyan-500/30 text-xl">💬</div>
           <div>
-            <h3 className="text-base font-bold text-white tracking-wide">Chat with Data</h3>
+            <h3 className="text-base font-bold text-white tracking-wide">AI Chatbot</h3>
             <p className="text-xs text-slate-400">Ask questions in plain English</p>
           </div>
         </div>
@@ -640,7 +715,7 @@ const ProfilePage = ({ user, setUser, history, handleLogout }) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 w-full animate-fade-up">
+    <div className="max-w-5xl mx-auto space-y-8 animate-fade-up w-full">
       <div className="glass-card p-10 md:p-14 rounded-[3rem] flex flex-col md:flex-row items-center gap-12 relative overflow-hidden">
         
         <div className="relative group cursor-pointer z-10" onClick={() => fileInputRef.current.click()}>
