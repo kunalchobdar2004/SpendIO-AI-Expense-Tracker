@@ -51,7 +51,7 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// 🌟 YOUR CUSTOM BACKGROUND IMAGE
+// 🌟 BACKGROUND IMAGE (22001.jpg)
 const ImageBackground = () => (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
@@ -62,7 +62,6 @@ const ImageBackground = () => (
     backgroundColor: '#050B14',
     zIndex: -10
   }}>
-    {/* Slight dark gradient overlay to make text readable */}
     <div style={{
       position: 'absolute', inset: 0,
       background: 'linear-gradient(to right, rgba(5,11,20,0.85) 0%, rgba(5,11,20,0.5) 50%, rgba(5,11,20,0.85) 100%)'
@@ -83,7 +82,7 @@ const Header = ({ user, handleLogout }) => {
     <header className="sticky top-0 z-50 shadow-lg border-b border-white/10" style={{ background: 'rgba(5, 11, 20, 0.8)', backdropFilter: 'blur(12px)' }}>
       <div className="max-w-7xl mx-auto px-6 h-[80px] flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-cyan-500 text-white flex items-center justify-center font-black text-xl shadow-[0_0_15px_rgba(239,68,68,0.5)] group-hover:scale-110 transition-transform">S</div>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 text-white flex items-center justify-center font-black text-xl shadow-[0_0_15px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform">S</div>
           <span className="text-2xl font-black tracking-tight text-white">SpendIO</span>
         </Link>
         <nav className="hidden md:flex gap-6 items-center">
@@ -92,7 +91,7 @@ const Header = ({ user, handleLogout }) => {
               {link.name}
             </Link>
           ))}
-          {!user && <Link to="/auth" className="ml-4 bg-white/10 border border-white/20 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-white/20 hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all">Sign In</Link>}
+          {!user && <Link to="/auth" className="ml-4 bg-white/10 border border-white/20 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-cyan-500 hover:border-cyan-500 transition-all">Sign In</Link>}
         </nav>
         {user && (
           <Link to="/profile" className="w-10 h-10 rounded-full bg-slate-800 text-cyan-400 font-bold flex items-center justify-center border-2 border-white/20 hover:border-cyan-400 transition-all cursor-pointer overflow-hidden shadow-lg">
@@ -104,13 +103,16 @@ const Header = ({ user, handleLogout }) => {
   );
 };
 
+// 🌟 UNIQUE MULTI-COLOR BLACK FOOTER
 const Footer = () => (
-  <footer className="pt-16 pb-8 mt-auto z-10 relative overflow-hidden" style={{ background: 'rgba(5, 11, 20, 0.9)', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-    <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-50"></div>
+  <footer className="pt-16 pb-8 mt-auto z-10 relative bg-black">
+    {/* Multi-color glowing top border */}
+    <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
+    
     <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12 relative z-10">
       <div className="col-span-1 md:col-span-2">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-cyan-500 flex items-center justify-center text-white font-black shadow-lg">S</div>
+          <div className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-black shadow-lg">S</div>
           <span className="text-2xl font-black text-white tracking-tight">Spend<span className="text-cyan-400">IO</span></span>
         </div>
         <p className="text-slate-400 leading-relaxed max-w-sm font-medium">The smartest AI-powered expense tracker. Take control of your financial future by letting AI do the heavy lifting.</p>
@@ -118,15 +120,15 @@ const Footer = () => (
       <div>
         <h4 className="text-white font-bold mb-4 text-sm tracking-widest uppercase opacity-80">Product</h4>
         <ul className="space-y-3 font-medium text-slate-400">
-          <li className="hover:text-cyan-400 cursor-pointer transition-colors">Features</li>
-          <li className="hover:text-cyan-400 cursor-pointer transition-colors">API Access</li>
+          <li className="hover:text-white cursor-pointer transition-colors">Features</li>
+          <li className="hover:text-white cursor-pointer transition-colors">API Access</li>
         </ul>
       </div>
       <div>
         <h4 className="text-white font-bold mb-4 text-sm tracking-widest uppercase opacity-80">Company</h4>
         <ul className="space-y-3 font-medium text-slate-400">
-          <li className="hover:text-cyan-400 cursor-pointer transition-colors">About Us</li>
-          <li className="hover:text-cyan-400 cursor-pointer transition-colors">Privacy Policy</li>
+          <li className="hover:text-white cursor-pointer transition-colors">About Us</li>
+          <li className="hover:text-white cursor-pointer transition-colors">Privacy Policy</li>
         </ul>
       </div>
     </div>
@@ -165,7 +167,7 @@ function App() {
   return (
     <Router>
       <GlobalStyles />
-      <div className="min-h-screen flex flex-col selection:bg-red-500/30 selection:text-white relative z-10">
+      <div className="min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-white relative z-10">
         <ImageBackground />
         <Header user={user} handleLogout={handleLogout} />
         <main className="flex-grow w-full max-w-7xl mx-auto px-6 py-10 z-10">
@@ -193,35 +195,35 @@ const HomePage = ({ user }) => {
     <div className="flex flex-col items-center justify-center animate-fade-up w-full h-full pb-10">
       <div className="text-center max-w-4xl mx-auto pt-16 pb-20 relative z-10">
         <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card text-cyan-400 text-xs font-bold mb-8 uppercase tracking-widest border-cyan-500/30">
-          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-          System v2.0 Operational
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          SpendIO 2.0 is Live
         </div>
         <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight tracking-tight text-white drop-shadow-2xl">
-          Command your wealth. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-cyan-400">Driven by AI.</span>
+          Your Money. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Mastered by AI.</span>
         </h1>
         <p className="text-xl md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed font-medium text-slate-300">
-          Upload raw invoice data. Our neural engine parses text, amount, and context instantly with zero manual input.
+          Upload receipts, track expenses, and chat with your financial data. SpendIO acts as your personal 24/7 accountant.
         </p>
-        <Link to={user ? "/dashboard" : "/auth"} className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-black text-lg py-4 px-10 rounded-xl shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-all inline-block hover:-translate-y-1">
-          {user ? "Access Terminal ➔" : "Initialize System ➔"}
+        <Link to={user ? "/dashboard" : "/auth"} className="bg-cyan-500 hover:bg-cyan-400 text-[#050B14] font-black text-lg py-4 px-10 rounded-xl shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-all inline-block hover:-translate-y-1">
+          {user ? "Enter Dashboard ➔" : "Start Free Trial ➔"}
         </Link>
       </div>
 
       <div id="features" className="grid md:grid-cols-3 gap-8 w-full mb-10 mt-6 relative z-10">
         <div className="p-8 rounded-[2rem] glass-card group">
-          <div className="w-14 h-14 bg-red-500/10 text-red-500 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-red-500/20 group-hover:bg-red-500 group-hover:text-white transition-all shadow-lg">📸</div>
-          <h3 className="text-xl font-bold mb-3 text-white">Neural Vision</h3>
-          <p className="text-slate-400 font-medium text-sm leading-relaxed">Upload a picture of your bill. Gemini AI will instantly read and save the exact amount into the matrix.</p>
+          <div className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 border border-white/20 group-hover:bg-cyan-500 transition-all shadow-lg">📸</div>
+          <h3 className="text-xl font-bold mb-3 text-white">One-Tap Scan</h3>
+          <p className="text-slate-400 font-medium text-sm leading-relaxed">Just upload a picture of your bill. Gemini AI will instantly read and save the exact amount.</p>
         </div>
         <div className="p-8 rounded-[2rem] glass-card group">
-          <div className="w-14 h-14 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-white transition-all shadow-lg">🤖</div>
-          <h3 className="text-xl font-bold mb-3 text-white">Logic Chatbot</h3>
-          <p className="text-slate-400 font-medium text-sm leading-relaxed">Ask questions like "How much did I spend on food?" and get an instant, precise AI reply.</p>
+          <div className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 border border-white/20 group-hover:bg-cyan-500 transition-all shadow-lg">🤖</div>
+          <h3 className="text-xl font-bold mb-3 text-white">AI Assistant</h3>
+          <p className="text-slate-400 font-medium text-sm leading-relaxed">Ask questions like "How much did I spend on food this month?" and get an instant AI reply.</p>
         </div>
         <div className="p-8 rounded-[2rem] glass-card group">
-          <div className="w-14 h-14 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center text-3xl mb-6 border border-purple-500/20 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-lg">📈</div>
-          <h3 className="text-xl font-bold mb-3 text-white">Visual Dashboards</h3>
-          <p className="text-slate-400 font-medium text-sm leading-relaxed">Beautiful color-coded charts and budget trackers make understanding your financial flow effortless.</p>
+          <div className="w-14 h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-3xl mb-6 border border-white/20 group-hover:bg-cyan-500 transition-all shadow-lg">📈</div>
+          <h3 className="text-xl font-bold mb-3 text-white">Visual Insights</h3>
+          <p className="text-slate-400 font-medium text-sm leading-relaxed">Beautiful color-coded charts and budget trackers make understanding your finances effortless.</p>
         </div>
       </div>
     </div>
@@ -254,27 +256,25 @@ const AuthPage = ({ setUser }) => {
 
   return (
     <div className="w-full flex items-center justify-center min-h-[70vh] relative z-20">
-      <div className="w-full max-w-md p-10 rounded-[2rem] glass-card animate-fade-up relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/20 blur-[50px] rounded-full"></div>
-        <div className="absolute bottom-0 left-0 w-32 h-32 bg-cyan-500/20 blur-[50px] rounded-full"></div>
-
-        <div className="text-center mb-8 relative z-10">
-          <div className="w-16 h-16 mx-auto bg-gradient-to-br from-red-500 to-cyan-500 text-white rounded-2xl flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.4)] font-black text-3xl mb-6">S</div>
-          <h2 className="text-3xl font-black text-white">{isLogin ? "Authentication" : "Register Node"}</h2>
-          <p className="text-slate-400 font-medium text-sm mt-2">Enter secure credentials to proceed.</p>
+      <div className="w-full max-w-md p-10 rounded-[2rem] glass-card animate-fade-up">
+        
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 mx-auto bg-gradient-to-br from-cyan-500 to-blue-500 text-white rounded-2xl flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.4)] font-black text-3xl mb-6">S</div>
+          <h2 className="text-3xl font-black text-white">{isLogin ? "Welcome back!" : "Create an account"}</h2>
+          <p className="text-slate-400 font-medium text-sm mt-2">Enter your details below to continue.</p>
         </div>
         
-        <div className="flex bg-black/40 p-1.5 rounded-xl mb-8 relative z-10 border border-white/5">
+        <div className="flex bg-black/40 p-1.5 rounded-xl mb-8 border border-white/5">
           <button onClick={() => setIsLogin(true)} className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-sm ${isLogin ? 'bg-white/10 text-white shadow-md border border-white/10' : 'text-slate-500 hover:text-white'}`}>Log In</button>
           <button onClick={() => setIsLogin(false)} className={`flex-1 py-2.5 rounded-lg font-bold transition-all text-sm ${!isLogin ? 'bg-white/10 text-white shadow-md border border-white/10' : 'text-slate-500 hover:text-white'}`}>Sign Up</button>
         </div>
         
-        <form onSubmit={submit} className="space-y-4 relative z-10">
+        <form onSubmit={submit} className="space-y-4">
           {!isLogin && <input type="text" required placeholder="Full Name" className="w-full rounded-xl py-4 px-5 glass-input" onChange={e=>setForm({...form, name:e.target.value})} />}
           <input type="email" required placeholder="Email Address" className="w-full rounded-xl py-4 px-5 glass-input" onChange={e=>setForm({...form, email:e.target.value})} />
-          <input type="password" required placeholder="Password Array" className="w-full rounded-xl py-4 px-5 glass-input" onChange={e=>setForm({...form, password:e.target.value})} />
+          <input type="password" required placeholder="Password" className="w-full rounded-xl py-4 px-5 glass-input" onChange={e=>setForm({...form, password:e.target.value})} />
           <button type="submit" disabled={loading} className="w-full bg-cyan-500 hover:bg-cyan-400 text-[#050B14] font-black text-lg py-4 rounded-xl transition-all shadow-[0_0_15px_rgba(34,211,238,0.4)] mt-4">
-            {loading ? "Authenticating..." : (isLogin ? "Initialize Session" : "Create Node")}
+            {loading ? "Processing..." : (isLogin ? "Secure Sign In ➔" : "Create Account ➔")}
           </button>
         </form>
       </div>
@@ -309,7 +309,7 @@ const Dashboard = ({ user, history, fetchHistory }) => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Purge this transaction from database?")) return;
+    if (!window.confirm("Are you sure you want to delete this expense?")) return;
     await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/expenses/${id}`, { method: "DELETE" });
     fetchHistory();
   };
@@ -322,6 +322,17 @@ const Dashboard = ({ user, history, fetchHistory }) => {
     link.setAttribute("href", encodeURI(csvContent));
     link.setAttribute("download", "SpendIO_Data.csv");
     document.body.appendChild(link); link.click(); document.body.removeChild(link);
+  };
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'My SpendIO Update',
+        text: `Hey! I have tracked ₹${totalExpenses} out of my ₹${budget} budget this month using SpendIO.`,
+      }).catch(console.error);
+    } else {
+      alert("Sharing is not supported on this browser/device.");
+    }
   };
 
   const totalExpenses = history.reduce((sum, item) => sum + Number(item.amount), 0);
@@ -338,23 +349,23 @@ const Dashboard = ({ user, history, fetchHistory }) => {
       <div className="lg:col-span-1">
         <div className="glass-card p-8 rounded-[2rem] sticky top-28">
           <h2 className="text-xl font-bold mb-6 flex items-center gap-3 text-white">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> 
-            {editingId ? "Update Data Node" : "Input New Node"}
+            <span className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">{editingId ? '✏️' : '➕'}</span> 
+            {editingId ? "Edit Expense" : "Add Expense"}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input type="number" required placeholder="Metric (₹)" className="w-full rounded-xl p-4 glass-input font-bold" value={form.amount} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
+            <input type="number" required placeholder="Amount (₹)" className="w-full rounded-xl p-4 glass-input font-bold" value={form.amount} onChange={(e) => setForm({ ...form, amount: e.target.value })} />
             <select className="w-full rounded-xl p-4 glass-input font-bold" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
               <option className="bg-slate-900">Food</option><option className="bg-slate-900">Transport</option><option className="bg-slate-900">Utilities</option><option className="bg-slate-900">Shopping</option><option className="bg-slate-900">Entertainment</option>
             </select>
-            <input type="text" placeholder="Context (e.g. KFC)" className="w-full rounded-xl p-4 glass-input" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+            <input type="text" placeholder="Description (e.g. KFC)" className="w-full rounded-xl p-4 glass-input" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
             <input type="date" required className="w-full rounded-xl p-4 glass-input text-slate-300" style={{ colorScheme: 'dark' }} value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
             
             <div className="flex gap-3 mt-6">
-              <button type="submit" className={`flex-1 text-white font-black py-4 rounded-xl shadow-lg transition-all ${editingId ? 'bg-red-500 hover:bg-red-400' : 'bg-cyan-500 hover:bg-cyan-400 text-slate-900'}`}>
-                {editingId ? "Commit Update" : "Inject Data"}
+              <button type="submit" className={`flex-1 text-white font-black py-4 rounded-xl shadow-lg transition-all ${editingId ? 'bg-orange-500 hover:bg-orange-400' : 'bg-cyan-500 hover:bg-cyan-400 text-slate-900'}`}>
+                {editingId ? "Update" : "Save"}
               </button>
               {editingId && (
-                <button type="button" onClick={()=>{setEditingId(null); setForm({ amount: "", category: "Food", description: "", date: "" });}} className="bg-white/10 text-white font-bold px-6 rounded-xl border border-white/20 hover:bg-white/20">Abort</button>
+                <button type="button" onClick={()=>{setEditingId(null); setForm({ amount: "", category: "Food", description: "", date: "" });}} className="bg-white/10 text-white font-bold px-6 rounded-xl border border-white/20 hover:bg-white/20">Cancel</button>
               )}
             </div>
           </form>
@@ -363,45 +374,53 @@ const Dashboard = ({ user, history, fetchHistory }) => {
 
       <div className="lg:col-span-2 flex flex-col gap-8">
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/20 blur-3xl rounded-full group-hover:bg-red-500/30 transition-all"></div>
+          <div className="glass-card p-8 rounded-[2rem] relative overflow-hidden">
             <div className="flex justify-between items-start mb-4 relative z-10">
-              <p className="text-xs font-bold uppercase tracking-widest text-red-400">Burn Rate</p>
-              <button onClick={() => { const b = prompt("Update Target Capacity:", budget); if(b && !isNaN(b)) { setBudget(Number(b)); localStorage.setItem("userBudget", Number(b)); } }} className="text-xs bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/20 transition-colors">Modify Limit</button>
+              <p className="text-xs font-bold uppercase tracking-widest text-cyan-400">Monthly Target</p>
+              <button onClick={() => { const b = prompt("Update Budget Limit:", budget); if(b && !isNaN(b)) { setBudget(Number(b)); localStorage.setItem("userBudget", Number(b)); } }} className="text-xs bg-white/10 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/20 transition-colors">Edit Budget</button>
             </div>
-            <h3 className="text-5xl font-black text-white relative z-10">₹{totalExpenses}</h3>
-            <p className="text-slate-400 font-medium mt-2 relative z-10">of ₹{budget} capacity</p>
+            <h3 className="text-5xl font-black text-white relative z-10">₹{totalExpenses.toLocaleString()}</h3>
+            <p className="text-slate-400 font-medium mt-2 relative z-10">of ₹{budget.toLocaleString()} limit</p>
             <div className="w-full h-2 rounded-full mt-6 bg-black/50 border border-white/10 relative z-10 overflow-hidden">
-              <div className={`h-full rounded-full transition-all duration-1000 ${budgetPercentage > 90 ? "bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]" : "bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]"}`} style={{ width: `${Math.min(budgetPercentage, 100)}%` }}></div>
+              <div className={`h-full rounded-full transition-all duration-1000 ${budgetPercentage > 90 ? "bg-red-500" : "bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]"}`} style={{ width: `${Math.min(budgetPercentage, 100)}%` }}></div>
             </div>
           </div>
           
-          <div className="glass-card p-8 rounded-[2rem] flex flex-col justify-center items-center relative">
-             <h3 className="text-sm font-bold absolute top-6 left-6 text-white uppercase tracking-wider opacity-80">Distribution</h3>
-            {chartData.length > 0 ? (
-              <div className="w-full h-[180px] mt-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie data={chartData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={4} dataKey="value" stroke="rgba(255,255,255,0.1)" strokeWidth={2}>
-                      {chartData.map((e, i) => <Cell key={i} fill={COLORS[i%COLORS.length]} />)}
-                    </Pie>
-                    <Tooltip contentStyle={{ backgroundColor: '#050B14', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '12px', color: '#fff', fontWeight: 'bold' }} itemStyle={{color: '#fff'}} />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            ) : <p className="text-slate-500 text-sm">No vectors detected.</p>}
-            <button onClick={handleExportCSV} className="absolute bottom-6 right-6 text-xs font-bold text-cyan-400 hover:text-white transition-colors">↓ Export CSV</button>
+          {/* Quick Actions (Share & Export) */}
+          <div className="glass-card p-8 rounded-[2rem] flex flex-col justify-center">
+            <h3 className="font-black text-white mb-4">Quick Actions</h3>
+            <div className="space-y-3">
+              <button onClick={handleExportCSV} className="w-full bg-white/10 text-white font-bold p-4 rounded-xl border border-white/20 hover:bg-cyan-500 hover:border-cyan-500 hover:text-[#050B14] transition-all text-left flex justify-between cursor-pointer">📥 Download CSV Report <span>➔</span></button>
+              <button onClick={handleShare} className="w-full bg-white/10 text-white font-bold p-4 rounded-xl border border-white/20 hover:bg-cyan-500 hover:border-cyan-500 hover:text-[#050B14] transition-all text-left flex justify-between cursor-pointer">🤝 Share with Family <span>➔</span></button>
+            </div>
           </div>
         </div>
 
+        {chartData.length > 0 && (
+          <div className="glass-card p-8 rounded-[2rem] h-[300px] flex flex-col items-center">
+            <h2 className="text-lg font-bold text-white align-self-start w-full mb-2">Visual Spend Split</h2>
+            <ResponsiveContainer width="100%" height="90%">
+              <PieChart>
+                <Pie data={chartData} cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={4} dataKey="value" stroke="rgba(255,255,255,0.1)" strokeWidth={2}>
+                  {chartData.map((e, i) => <Cell key={i} fill={COLORS[i%COLORS.length]} />)}
+                </Pie>
+                <Tooltip contentStyle={{ backgroundColor: '#050B14', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '12px', color: '#fff', fontWeight: 'bold' }} itemStyle={{color: '#fff'}} />
+                <Legend iconType="circle" wrapperStyle={{ paddingTop: "10px" }}/>
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+
         <div className="glass-card p-8 rounded-[2rem]">
-          <h2 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-4">Data Logs</h2>
+          <h2 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-4 flex items-center gap-2"><span>📋</span> Recent Transactions</h2>
           {history.length > 0 ? (
             <div className="space-y-3">
               {history.map((item) => (
                 <div key={item.id} className="flex justify-between items-center p-4 rounded-2xl bg-black/30 border border-white/5 hover:border-cyan-500/40 transition-all group">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-cyan-400 group-hover:shadow-[0_0_10px_rgba(34,211,238,0.2)]">{item.category.charAt(0)}</div>
+                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-black text-white group-hover:shadow-[0_0_10px_rgba(34,211,238,0.2)]">
+                      {item.category === 'Food' ? '🍔' : item.category === 'Transport' ? '🚕' : item.category === 'Shopping' ? '🛍️' : item.category === 'Entertainment' ? '🍿' : '⚡'}
+                    </div>
                     <div>
                       <p className="font-bold text-base text-white">{item.description || item.category}</p>
                       <p className="text-xs text-slate-400 font-medium tracking-widest mt-1">{new Date(item.date).toLocaleDateString()}</p>
@@ -410,14 +429,14 @@ const Dashboard = ({ user, history, fetchHistory }) => {
                   <div className="flex items-center gap-6">
                     <p className="font-mono font-bold text-xl text-white">₹{item.amount}</p>
                     <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button onClick={() => handleEdit(item)} className="p-2 rounded-lg bg-white/10 text-white hover:bg-cyan-500 transition-colors">✏️</button>
+                      <button onClick={() => handleEdit(item)} className="p-2 rounded-lg bg-white/10 text-white hover:bg-cyan-500 hover:text-black transition-colors">✏️</button>
                       <button onClick={() => handleDelete(item.id)} className="p-2 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white transition-colors">🗑️</button>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-          ) : <p className="text-center text-slate-500 font-medium py-8">Database empty. Initiate first input.</p>}
+          ) : <p className="text-center text-slate-500 font-medium py-8">No expenses logged yet. Add your first expense!</p>}
         </div>
       </div>
     </div>
@@ -451,37 +470,36 @@ const ScanPage = ({ user, fetchHistory }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto w-full animate-fade-up">
-      <div className="glass-card p-12 md:p-16 rounded-[3rem] text-center relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-cyan-500/50 rounded-tl-[3rem]"></div>
-        <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-red-500/50 rounded-br-[3rem]"></div>
+    <div className="max-w-4xl mx-auto w-full animate-fade-up flex flex-col items-center justify-center min-h-[60vh]">
+      <div className="glass-card p-12 md:p-16 rounded-[3rem] w-full text-center relative overflow-hidden shadow-[0_0_50px_rgba(34,211,238,0.05)]">
 
-        <h1 className="text-4xl font-black text-white mb-3">Optical AI Extraction</h1>
-        <p className="mb-10 text-slate-400 font-medium text-lg">Transmit document image. Neural Net will isolate data automatically.</p>
+        <div className="w-20 h-20 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-6 text-4xl shadow-inner border border-white/20">📸</div>
+        <h1 className="text-3xl font-black text-white mb-3 tracking-wide">AI Receipt Scanner</h1>
+        <p className="text-sm text-slate-400 mb-10 font-medium">Let Gemini AI read your physical bills automatically.</p>
         
-        <div className="border border-white/20 rounded-[2rem] bg-black/40 hover:bg-black/60 transition-all mx-auto max-w-2xl overflow-hidden shadow-inner">
-          <div className="p-20 flex flex-col items-center">
+        <div className="relative border border-white/20 rounded-[2rem] bg-black/40 hover:bg-white/5 transition-all group overflow-hidden max-w-2xl mx-auto shadow-inner">
+          <div className="p-20 flex flex-col items-center justify-center">
             {loading ? (
               <>
-                <div className="w-16 h-16 border-4 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin mb-6"></div>
-                <p className="font-bold text-cyan-400 tracking-widest uppercase animate-pulse">Processing Matrix...</p>
+                <div className="w-16 h-16 border-4 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin mb-6 shadow-[0_0_15px_rgba(34,211,238,0.5)]"></div>
+                <p className="text-sm font-bold text-cyan-400 animate-pulse tracking-widest uppercase">Extracting Data...</p>
               </>
             ) : (
               <>
-                <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-6 text-4xl shadow-inner">📸</div>
-                <label className="bg-gradient-to-r from-red-500 to-cyan-500 text-white font-black px-8 py-4 rounded-xl cursor-pointer hover:scale-105 transition-all shadow-[0_0_20px_rgba(239,68,68,0.3)]">
-                  Select Visual Node
+                <p className="text-7xl mb-6 group-hover:scale-110 transition-transform">📄</p>
+                <label className="bg-white text-slate-900 text-base font-bold px-8 py-4 rounded-xl cursor-pointer hover:bg-cyan-400 hover:scale-105 transition-all block">
+                  Select File
                   <input type="file" accept="image/*" onChange={handleUpload} className="hidden" />
                 </label>
-                <p className="text-xs text-slate-500 mt-6 tracking-widest uppercase">JPG, PNG (Max 5MB)</p>
+                <p className="text-xs text-slate-500 mt-6 font-mono uppercase tracking-widest">Supported: JPG, PNG (Max 5MB)</p>
               </>
             )}
           </div>
         </div>
 
         {result && (
-          <div className="mt-8 inline-block bg-green-500/20 border border-green-500/50 text-green-400 p-6 rounded-2xl font-black text-xl shadow-[0_0_15px_rgba(34,197,94,0.3)]">
-            ✅ Data Encoded: ₹{result.amount} [{result.category}]
+          <div className="mt-10 inline-flex items-center gap-3 bg-green-500/20 border border-green-500/50 text-green-400 px-6 py-4 rounded-xl text-base font-bold animate-fade-up">
+            ✅ Saved: ₹{result.amount} ({result.category})
           </div>
         )}
       </div>
@@ -495,7 +513,7 @@ const ScanPage = ({ user, fetchHistory }) => {
 const AiPage = ({ user, history }) => {
   const [insights, setInsights] = useState(null);
   const [chat, setChat] = useState("");
-  const [messages, setMessages] = useState([{ role: 'ai', text: 'Terminal Active. AI Financial Core online. Awaiting query...' }]);
+  const [messages, setMessages] = useState([{ role: 'ai', text: 'Hello! I am your AI Financial Assistant. Ask me anything about your spending data. 🤖' }]);
   const [loadingInsights, setLoadingInsights] = useState(false);
   const messagesEndRef = useRef(null);
 
@@ -505,8 +523,9 @@ const AiPage = ({ user, history }) => {
     setLoadingInsights(true);
     try {
       const res = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/insights/${user.id}`);
+      if(!res.ok) throw new Error("API Failed");
       setInsights(await res.json());
-    } catch (err) { alert("Diagnostic failed."); }
+    } catch (err) { alert("AI Report failed to generate."); }
     setLoadingInsights(false);
   };
 
@@ -514,60 +533,79 @@ const AiPage = ({ user, history }) => {
     if(e) e.preventDefault();
     const q = customText || chat;
     if(!q.trim()) return;
+    
     setMessages(p => [...p, { role: 'user', text: q }]);
     setChat("");
+    
     try {
       const res = await fetch("https://spendio-ai-expense-tracker.onrender.com/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: q, expenses: history }) });
       const data = await res.json();
       setMessages(p => [...p, { role: 'ai', text: data.answer }]);
-    } catch(err) { setMessages(p => [...p, { role: 'ai', text: "Error: Neural link severed." }]); }
+    } catch(err) {
+      setMessages(p => [...p, { role: 'ai', text: "Connection error!" }]);
+    }
   };
 
   return (
     <div className="grid lg:grid-cols-3 gap-8 h-[75vh] animate-fade-up">
-      <div className="lg:col-span-1 glass-card p-8 rounded-[2rem] flex flex-col overflow-y-auto border-t-4 border-t-red-500">
-        <h2 className="text-xl font-bold mb-4 flex items-center gap-3 text-white"><span className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span> Deep Analysis</h2>
-        <p className="text-xs text-slate-400 mb-6 uppercase tracking-widest border-b border-white/10 pb-4">Generate logic matrix</p>
-        <button onClick={fetchReport} disabled={loadingInsights} className="w-full bg-white/5 border border-white/10 text-white font-bold py-4 rounded-xl mb-6 hover:bg-white/10 transition-all uppercase tracking-widest text-sm">
-          {loadingInsights ? "Compiling..." : "Run Diagnostics"}
+      <div className="lg:col-span-1 glass-card rounded-[2rem] p-8 flex flex-col h-full overflow-y-auto border-t-4 border-t-pink-500">
+        <h2 className="text-xl font-bold text-white mb-2 flex items-center gap-3">
+          <span className="bg-white/20 p-2 rounded-xl">✨</span> Smart Report
+        </h2>
+        <p className="text-xs text-slate-400 mb-8 uppercase tracking-widest border-b border-white/10 pb-4">AI Analysis of your spending</p>
+        
+        <button onClick={fetchReport} disabled={loadingInsights} className="w-full bg-pink-500 hover:bg-pink-400 text-white font-bold py-4 rounded-xl mb-6 transition-all shadow-[0_0_15px_rgba(236,72,153,0.3)] disabled:opacity-50">
+          {loadingInsights ? "Crunching Numbers..." : "Generate AI Analysis"}
         </button>
+        
         {insights && (
-          <div className="space-y-4">
-            <div className="bg-black/40 p-5 rounded-xl border border-white/5 border-l-4 border-l-cyan-400">
-              <p className="text-xs font-bold text-cyan-400 uppercase tracking-widest mb-2">Conclusion</p>
-              <p className="text-sm text-slate-300">{insights.summary}</p>
+          <div className="space-y-6 flex-1 animate-fade-up mt-4">
+            <div className="bg-black/40 p-5 rounded-xl border border-white/10 shadow-inner">
+              <p className="text-xs font-bold text-pink-400 uppercase tracking-widest mb-3">📊 Monthly Summary</p>
+              <p className="text-sm text-slate-300 leading-relaxed font-medium">{insights.summary}</p>
             </div>
-            <div className="bg-black/40 p-5 rounded-xl border border-white/5 border-l-4 border-l-green-400">
-              <p className="text-xs font-bold text-green-400 uppercase tracking-widest mb-2">Vectors</p>
-              <ul className="space-y-2 text-sm text-slate-300">{insights.suggestions.map((s,i)=><li key={i}>› {s}</li>)}</ul>
+            <div className="bg-black/40 p-5 rounded-xl border border-white/10 shadow-inner">
+              <p className="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3">💡 Actionable Tips</p>
+              <ul className="space-y-3 text-sm text-slate-300 font-medium">
+                {insights.suggestions.map((s,i)=>(
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-emerald-500">✓</span> {s}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         )}
       </div>
 
-      <div className="lg:col-span-2 glass-card rounded-[2rem] flex flex-col h-full border-t-4 border-t-cyan-500 overflow-hidden">
-        <div className="p-5 bg-black/40 border-b border-white/10 flex items-center gap-4">
-          <div className="w-10 h-10 bg-cyan-500/20 rounded-xl flex items-center justify-center text-cyan-400 border border-cyan-500/30">💻</div>
-          <div><h3 className="font-bold text-white tracking-wide">Gemini Console</h3><p className="text-xs text-cyan-400 font-mono">Status: Connected</p></div>
+      <div className="lg:col-span-2 glass-card rounded-[2rem] flex flex-col h-full overflow-hidden border-t-4 border-t-cyan-500">
+        <div className="p-5 border-b border-white/10 bg-white/5 flex items-center gap-4">
+          <div className="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center border border-cyan-500/30 text-xl">💬</div>
+          <div>
+            <h3 className="text-base font-bold text-white tracking-wide">Chat with Data</h3>
+            <p className="text-xs text-slate-400">Ask questions in plain English</p>
+          </div>
         </div>
-        <div className="flex-1 overflow-y-auto p-6 space-y-5 custom-scrollbar bg-transparent">
+
+        <div className="flex-1 overflow-y-auto p-6 bg-black/20 custom-scrollbar flex flex-col gap-5">
           {messages.map((m, i) => (
-            <div key={i} className={`flex ${m.role==='ai' ? 'justify-start' : 'justify-end'}`}>
-              <div className={`p-4 rounded-2xl max-w-[80%] text-sm font-medium leading-relaxed ${m.role==='ai' ? 'bg-slate-800/80 text-white border border-white/10 rounded-tl-sm' : 'bg-cyan-500 text-[#050B14] font-bold rounded-tr-sm'}`}>
+            <div key={i} className={`flex ${m.role==='ai' ? 'justify-start' : 'justify-end'} animate-fade-up`}>
+              <div className={`p-4 rounded-2xl max-w-[80%] text-sm font-medium leading-relaxed border ${m.role==='ai' ? 'bg-slate-800/80 text-white border-white/10 rounded-tl-sm' : 'bg-cyan-500 text-slate-900 border-transparent rounded-tr-sm font-bold'}`}>
                 {m.text}
               </div>
             </div>
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <div className="p-5 bg-black/40 border-t border-white/10">
-          <div className="flex gap-2 mb-4">
-            <button onClick={()=>handleChat(null, "Identify anomaly in spending.")} className="bg-white/5 border border-white/10 text-xs font-bold px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10">Detect Anomalies</button>
-            <button onClick={()=>handleChat(null, "Calculate total Food metric.")} className="bg-white/5 border border-white/10 text-xs font-bold px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10">Food Total</button>
+        
+        <div className="p-5 bg-white/5 border-t border-white/10">
+          <div className="flex gap-3 mb-4 overflow-x-auto pb-2 custom-scrollbar">
+            <button onClick={()=>handleChat(null, "Which category is highest?")} className="whitespace-nowrap bg-black border border-white/20 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-white/10 transition-colors">Highest Category?</button>
+            <button onClick={()=>handleChat(null, "Did I spend on Food recently?")} className="whitespace-nowrap bg-black border border-white/20 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-white/10 transition-colors">Food Expenses?</button>
           </div>
           <form onSubmit={(e)=>handleChat(e)} className="flex gap-3">
-            <input type="text" className="flex-1 p-4 rounded-xl glass-input font-mono text-sm" placeholder="Enter logic query >_" value={chat} onChange={e=>setChat(e.target.value)} />
-            <button type="submit" className="bg-cyan-500 text-[#050B14] px-8 rounded-xl font-black transition-all hover:bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.4)]">EXEC</button>
+            <input type="text" className="flex-1 p-4 text-sm bg-black/50 border border-white/10 rounded-xl outline-none focus:border-cyan-500 text-white transition-all glass-input" placeholder="Ask a question..." value={chat} onChange={e=>setChat(e.target.value)} />
+            <button type="submit" className="bg-cyan-500 text-[#050B14] px-8 rounded-xl text-base font-black hover:bg-cyan-400 transition-all">Send</button>
           </form>
         </div>
       </div>
@@ -578,19 +616,68 @@ const AiPage = ({ user, history }) => {
 // =====================================
 // 📄 PROTECTED PAGE: PROFILE
 // =====================================
-const ProfilePage = ({ user, handleLogout }) => {
+const ProfilePage = ({ user, setUser, history, handleLogout }) => {
+  const fileInputRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+  const total = history.reduce((s, i) => s + Number(i.amount), 0);
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      try {
+        const res = await fetch(`https://spendio-ai-expense-tracker.onrender.com/api/user/${user.id}/profile-pic`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ profilePic: reader.result }) });
+        if(res.ok) {
+          const updatedUser = { ...user, profilePic: reader.result };
+          setUser(updatedUser); localStorage.setItem("authUser", JSON.stringify(updatedUser));
+        }
+      } catch (err) { alert("Upload Failed"); }
+      setUploading(false);
+    };
+  };
+
   return (
-    <div className="max-w-3xl mx-auto space-y-8 animate-fade-up w-full">
-      <div className="glass-card p-12 rounded-[3rem] text-center relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-40 h-40 bg-red-500/20 blur-[60px] rounded-full"></div>
-        <div className="w-32 h-32 mx-auto rounded-full bg-black/50 text-white font-black text-5xl flex items-center justify-center border-2 border-white/20 shadow-xl mb-6 relative z-10">
-          {user.profilePic ? <img src={user.profilePic} className="w-full h-full object-cover rounded-full" alt="Profile" /> : user.name.charAt(0).toUpperCase()}
+    <div className="max-w-5xl mx-auto space-y-8 w-full animate-fade-up">
+      <div className="glass-card p-10 md:p-14 rounded-[3rem] flex flex-col md:flex-row items-center gap-12 relative overflow-hidden">
+        
+        <div className="relative group cursor-pointer z-10" onClick={() => fileInputRef.current.click()}>
+          <div className="w-36 h-36 rounded-full bg-black/50 text-white font-black text-5xl flex items-center justify-center border-2 border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.05)] overflow-hidden group-hover:border-cyan-400 transition-all">
+            {uploading ? <div className="text-sm font-bold text-cyan-400">Loading...</div> : (user.profilePic ? <img src={user.profilePic} className="w-full h-full object-cover" alt="Profile" /> : user.name.charAt(0).toUpperCase())}
+          </div>
+          <div className="absolute bottom-1 right-1 bg-white text-black p-2.5 rounded-full shadow-lg">📷</div>
+          <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleImageUpload} />
         </div>
-        <h1 className="text-4xl font-black text-white mb-2 relative z-10">{user.name}</h1>
-        <p className="text-lg text-slate-400 font-mono mb-8 relative z-10">{user.email}</p>
-        <button onClick={handleLogout} className="w-full bg-red-500/20 border border-red-500/40 text-red-400 font-black text-lg py-4 rounded-xl hover:bg-red-500 hover:text-white transition-all relative z-10 uppercase tracking-widest">
-          Terminate Session
-        </button>
+        
+        <div className="text-center md:text-left flex-1 z-10">
+          <h1 className="text-4xl font-black text-white mb-2">{user.name}</h1>
+          <p className="text-lg text-slate-400 mb-6">{user.email}</p>
+          <div className="inline-block bg-white/10 border border-white/20 text-white px-6 py-3 rounded-xl text-sm font-bold shadow-sm">Total Tracked: <span className="text-cyan-400">₹{total.toLocaleString()}</span></div>
+        </div>
+      </div>
+      
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="glass-card p-10 rounded-3xl animate-fade-up delay-100">
+          <h2 className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">👑 Subscription</h2>
+          <div className="bg-black/30 p-6 rounded-2xl border border-white/10 text-center">
+            <span className="inline-block bg-white/10 text-white font-bold px-4 py-1 rounded-full text-sm mb-4 border border-white/20">Current Plan</span>
+            <h3 className="text-3xl font-black text-white mb-2">SpendIO Free</h3>
+            <p className="text-sm text-slate-400 mb-6 font-medium">Upgrade to PRO to unlock unlimited AI scans.</p>
+            <button className="w-full bg-white text-black text-sm font-bold py-4 rounded-xl hover:bg-cyan-400 transition-colors">Upgrade Now</button>
+          </div>
+        </div>
+        
+        <div className="glass-card p-10 rounded-3xl animate-fade-up delay-200 flex flex-col justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-white mb-4 border-b border-white/10 pb-4">⚙️ Account Settings</h2>
+            <p className="text-sm text-slate-400 mb-8 font-medium">Log out securely from this device.</p>
+          </div>
+          <button onClick={handleLogout} className="w-full bg-red-500/20 border border-red-500/40 text-red-400 text-sm font-bold py-4 rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-lg">
+            Log Out Securely
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -599,15 +686,27 @@ const ProfilePage = ({ user, handleLogout }) => {
 // =====================================
 // 📄 PUBLIC PAGE: FAQ
 // =====================================
-const FaqPage = () => (
-  <div className="max-w-3xl mx-auto py-12 animate-fade-up">
-    <div className="text-center mb-12"><h1 className="text-4xl font-black text-white mb-2 tracking-wide">Knowledge Base</h1><p className="text-cyan-400 font-mono text-sm uppercase tracking-widest">System Documentation</p></div>
-    <div className="space-y-4">
-      {[{q: "Is the database secure?", a: "Yes. All metrics are logged in a highly secure PostgreSQL instance."}, {q: "How does Vision work?", a: "It integrates Google Gemini to parse image pixels and extract data."}, {q: "Can I export data?", a: "Affirmative. Dashboard allows one-click CSV compilation."}].map((f, i) => (
-        <div key={i} className="p-6 rounded-2xl glass-card border-l-4 border-l-cyan-500"><h3 className="font-bold text-white mb-2">{f.q}</h3><p className="text-sm text-slate-400 font-medium">{f.a}</p></div>
-      ))}
+const FaqPage = () => {
+  const faqs = [
+    { q: "How does the AI Scanner work?", a: "It uses Google Gemini Vision to read your uploaded physical receipts and automatically extracts the amount and category." },
+    { q: "Is my data private?", a: "Yes, your expenses are stored securely in a private PostgreSQL database linked exclusively to your account." },
+    { q: "How does the AI Chatbot work?", a: "The Chatbot dynamically reads your database entries and uses generative AI to answer questions about your spending." },
+  ];
+  return (
+    <div className="max-w-4xl mx-auto w-full py-12 animate-fade-up">
+      <div className="text-center mb-16">
+        <h1 className="text-5xl font-black text-white mb-4">Frequently Asked Questions</h1>
+      </div>
+      <div className="space-y-6">
+        {faqs.map((f, i) => (
+          <div key={i} className="p-8 rounded-3xl glass-card relative overflow-hidden">
+            <h3 className="font-bold text-white mb-3 text-lg flex items-center gap-3"><span className="bg-white/10 px-3 py-1 rounded-lg text-cyan-400">Q</span> {f.q}</h3>
+            <p className="text-sm text-slate-400 leading-relaxed font-medium pl-12">{f.a}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default App;
