@@ -6,9 +6,8 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' })); 
 
-// ==========================================
-// 🌍 PRODUCTION-READY DATABASE CONNECTION
-// ==========================================
+
+// PRODUCTION-READY DATABASE CONNECTION
 // Agar live URL (Render par) hai toh wo use hoga, warna aapka local database chalega
 const dbUrl = process.env.DATABASE_URL || "postgresql://postgres:YOUR_PASSWORD@localhost:5432/expense_tracker";
 const pool = new Pool({
@@ -48,10 +47,8 @@ const setupDatabase = async () => {
 };
 setupDatabase();
 
-
-// ==========================================
-// 🚨 PRODUCTION-READY API KEY 
-// ==========================================
+//
+//  PRODUCTION-READY API KEY 
 // Render se API key lega, ya phir local wali chalayega
 const API_KEY = process.env.GEMINI_API_KEY || "YOUR_API_KEY";
 async function callGeminiAPI(bodyData) {
@@ -90,9 +87,9 @@ async function callGeminiAPI(bodyData) {
 }
 
 
-// ==========================================
-// 🔐 AUTHENTICATION & PROFILE ROUTES
-// ==========================================
+
+// AUTHENTICATION & PROFILE ROUTES
+
 app.post('/api/signup', async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -129,9 +126,9 @@ app.put('/api/user/:id/profile-pic', async (req, res) => {
     } catch (err) { res.status(500).json({ error: 'Server error during upload' }); }
 });
 
-// ==========================================
-// 💰 EXPENSE ROUTES
-// ==========================================
+
+// EXPENSE ROUTES
+
 app.get('/api/expenses', async (req, res) => {
     try {
         const { userId } = req.query;
@@ -169,9 +166,9 @@ app.delete('/api/expenses/:id', async (req, res) => {
     } catch (err) { res.status(500).send('Server Error'); }
 });
 
-// ==========================================
-// ✨ AI ROUTES 
-// ==========================================
+
+// AI ROUTES 
+
 app.get('/api/insights/:userId', async (req, res) => {
     try {
         const { userId } = req.params;
