@@ -2,9 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-// =====================================
-// 🎨 GLOBAL STYLES & GLASSMORPHISM
-// =====================================
 const GlobalStyles = () => (
   <style>{`
     body, html {
@@ -21,7 +18,6 @@ const GlobalStyles = () => (
     }
     .animate-fade-up { animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     
-    /* 🌟 DARK GLASSMORPHISM CARDS */
     .glass-card {
       background: rgba(15, 23, 42, 0.65) !important;
       backdrop-filter: blur(12px);
@@ -51,7 +47,6 @@ const GlobalStyles = () => (
   `}</style>
 );
 
-// 🌟 BACKGROUND IMAGE (22001.jpg)
 const ImageBackground = () => (
   <div style={{
     position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
@@ -69,9 +64,6 @@ const ImageBackground = () => (
   </div>
 );
 
-// =====================================
-// 🎨 COMPONENTS: HEADER, MOBILE NAV & FOOTER
-// =====================================
 const Header = ({ user }) => {
   const location = useLocation();
   const publicLinks = [{ name: "Home", path: "/" }, { name: "Features", path: "/features" }, { name: "FAQ", path: "/faq" }];
@@ -88,7 +80,6 @@ const Header = ({ user }) => {
           <span className="text-xl md:text-2xl font-black tracking-tight text-white drop-shadow-md">SpendIO</span>
         </Link>
         
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-6 items-center">
           {links.map(link => (
             <Link key={link.name} to={link.path} className={`font-bold transition-all duration-300 hover:-translate-y-0.5 px-3 py-2 rounded-lg ${location.pathname === link.path ? 'bg-white/10 text-cyan-400 shadow-inner' : 'text-slate-300 hover:text-white hover:bg-white/5'}`}>
@@ -98,7 +89,6 @@ const Header = ({ user }) => {
           {!user && <Link to="/auth" className="ml-4 bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-6 py-2.5 rounded-xl font-bold hover:bg-cyan-500 hover:text-[#050B14] hover:shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all">Sign In</Link>}
         </nav>
 
-        {/* Profile icon for mobile and desktop */}
         {user ? (
           <Link to="/profile" className="hidden md:flex w-10 h-10 rounded-full bg-slate-800 text-cyan-400 font-bold items-center justify-center border-2 border-white/20 hover:border-cyan-400 transition-all cursor-pointer overflow-hidden shadow-[0_0_10px_rgba(255,255,255,0.1)]">
             {user.profilePic ? <img src={user.profilePic} className="w-full h-full object-cover" alt="Profile" /> : user.name.charAt(0).toUpperCase()}
@@ -111,7 +101,6 @@ const Header = ({ user }) => {
   );
 };
 
-// 📱 MOBILE BOTTOM NAVIGATION (APP-LIKE FEEL)
 const MobileNav = ({ user }) => {
   const location = useLocation();
   const links = user 
@@ -139,7 +128,6 @@ const MobileNav = ({ user }) => {
   );
 };
 
-// 🌟 UNIQUE MULTI-COLOR BLACK FOOTER
 const Footer = () => (
   <footer className="pt-12 md:pt-16 pb-24 md:pb-8 mt-auto z-10 relative bg-black">
     <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 shadow-[0_0_15px_rgba(255,255,255,0.2)]"></div>
@@ -156,13 +144,13 @@ const Footer = () => (
         <h4 className="text-white font-bold mb-3 md:mb-4 text-xs md:text-sm tracking-widest uppercase opacity-80">Product</h4>
         <ul className="space-y-2 md:space-y-3 font-medium text-slate-400 text-sm">
           <li><Link to="/features" className="hover:text-white cursor-pointer transition-colors">Features</Link></li>
-          <li className="hover:text-white cursor-pointer transition-colors">API Access</li>
+          <li><Link to="/features" className="hover:text-white cursor-pointer transition-colors">API Access</Link></li>
         </ul>
       </div>
       <div>
         <h4 className="text-white font-bold mb-3 md:mb-4 text-xs md:text-sm tracking-widest uppercase opacity-80">Company</h4>
         <ul className="space-y-2 md:space-y-3 font-medium text-slate-400 text-sm">
-          <li className="hover:text-white cursor-pointer transition-colors">About Us</li>
+          <li><Link to="/features" className="hover:text-white cursor-pointer transition-colors">About Us</Link></li>
           <li className="hover:text-white cursor-pointer transition-colors">Privacy Policy</li>
         </ul>
       </div>
@@ -174,9 +162,6 @@ const Footer = () => (
   </footer>
 );
 
-// =====================================
-// 🚀 MAIN APP WITH ROUTING
-// =====================================
 function App() {
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem("authUser");
@@ -205,7 +190,6 @@ function App() {
       <div className="min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-white relative z-10">
         <ImageBackground />
         <Header user={user} handleLogout={handleLogout} />
-        {/* pb-20 added for mobile to prevent content hiding behind bottom nav */}
         <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-10 z-10 pb-24 md:pb-10">
           <Routes>
             <Route path="/" element={<HomePage user={user} />} />
@@ -225,17 +209,10 @@ function App() {
   );
 }
 
-// =====================================
-// 🌟 PAGE 1: HOME PAGE
-// =====================================
 const HomePage = ({ user }) => {
   return (
     <div className="flex flex-col items-center justify-center animate-fade-up w-full h-full pb-6 md:pb-10">
       <div className="text-center max-w-4xl mx-auto pt-10 md:pt-16 pb-12 md:pb-20 relative z-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 md:px-5 md:py-2 rounded-full glass-card text-cyan-400 text-[10px] md:text-xs font-bold mb-6 md:mb-8 uppercase tracking-widest border-cyan-500/30">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-          SpendIO 2.0 is Live
-        </div>
         <h1 className="text-4xl sm:text-6xl md:text-8xl font-black mb-4 md:mb-6 leading-tight tracking-tight text-white drop-shadow-2xl">
           Your Money. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Mastered by AI.</span>
         </h1>
@@ -247,19 +224,19 @@ const HomePage = ({ user }) => {
         </Link>
       </div>
 
-      <div id="features" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 w-full mb-10 mt-6 relative z-10">
-        <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] glass-card group">
-          <div className="w-12 h-12 md:w-14 md:h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 border border-white/20 group-hover:bg-cyan-500 transition-all shadow-lg">📸</div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 w-full mb-10 mt-6 relative z-10">
+        <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-[#050B14]/40 backdrop-blur-xl border border-red-500/30 hover:border-red-500 hover:shadow-[0_0_30px_rgba(239,68,68,0.2)] transition-all group">
+          <div className="w-12 h-12 md:w-14 md:h-14 bg-red-500/10 text-red-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 group-hover:bg-red-500 group-hover:text-white transition-all shadow-lg">📸</div>
           <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">One-Tap Scan</h3>
           <p className="text-slate-400 font-medium text-xs md:text-sm leading-relaxed">Just upload a picture of your bill. Gemini AI will instantly read and save the exact amount.</p>
         </div>
-        <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] glass-card group">
-          <div className="w-12 h-12 md:w-14 md:h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 border border-white/20 group-hover:bg-cyan-500 transition-all shadow-lg">🤖</div>
+        <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-[#050B14]/40 backdrop-blur-xl border border-cyan-500/30 hover:border-cyan-500 hover:shadow-[0_0_30px_rgba(34,211,238,0.2)] transition-all group">
+          <div className="w-12 h-12 md:w-14 md:h-14 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 group-hover:bg-cyan-500 group-hover:text-white transition-all shadow-lg">🤖</div>
           <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">AI Assistant</h3>
           <p className="text-slate-400 font-medium text-xs md:text-sm leading-relaxed">Ask questions like "How much did I spend on food this month?" and get an instant AI reply.</p>
         </div>
-        <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] glass-card group sm:col-span-2 md:col-span-1">
-          <div className="w-12 h-12 md:w-14 md:h-14 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 border border-white/20 group-hover:bg-cyan-500 transition-all shadow-lg">📈</div>
+        <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-[#050B14]/40 backdrop-blur-xl border border-purple-500/30 hover:border-purple-500 hover:shadow-[0_0_30px_rgba(168,85,247,0.2)] transition-all group sm:col-span-2 md:col-span-1">
+          <div className="w-12 h-12 md:w-14 md:h-14 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-lg">📈</div>
           <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">Visual Insights</h3>
           <p className="text-slate-400 font-medium text-xs md:text-sm leading-relaxed">Beautiful color-coded charts and budget trackers make understanding your finances effortless.</p>
         </div>
@@ -268,40 +245,56 @@ const HomePage = ({ user }) => {
   );
 };
 
-// =====================================
-// 🌟 PAGE 2: FEATURES PAGE
-// =====================================
 const FeaturesPage = () => {
   return (
     <div className="max-w-6xl mx-auto w-full py-8 md:py-12 animate-fade-up">
       <div className="text-center mb-10 md:mb-16 relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 md:w-64 h-48 md:h-64 bg-cyan-500/20 blur-[80px] md:blur-[100px] rounded-full pointer-events-none"></div>
         <h1 className="text-4xl md:text-5xl font-black text-white mb-4 md:mb-6 tracking-tight relative z-10">Powerful Features</h1>
         <p className="text-slate-400 font-medium text-sm md:text-lg max-w-2xl mx-auto relative z-10 px-4 md:px-0">Everything you need to master your personal finances without the hassle of manual spreadsheets.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <div className="glass-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] group relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 md:w-32 h-24 md:h-32 bg-cyan-500/10 blur-3xl rounded-full group-hover:bg-cyan-500/20 transition-all"></div>
-          <div className="w-14 h-14 md:w-16 md:h-16 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-[#050B14] transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)]">📸</div>
+        <div className="bg-[#050B14]/60 backdrop-blur-xl border border-red-500/20 hover:border-red-500/50 p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] group transition-all shadow-[0_0_15px_rgba(239,68,68,0.1)]">
+          <div className="w-14 h-14 md:w-16 md:h-16 bg-red-500/10 text-red-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 group-hover:bg-red-500 group-hover:text-[#050B14] transition-all">📸</div>
           <h3 className="text-2xl md:text-3xl font-black mb-3 md:mb-4 text-white">Smart Vision Scanner</h3>
           <p className="text-slate-400 font-medium text-sm md:text-base leading-relaxed mb-4 md:mb-6">Powered by Google Gemini Vision. Simply point your camera at any receipt, and our AI will automatically detect the total amount and categorize the expense. No more typing.</p>
           <ul className="space-y-2 text-xs md:text-sm font-bold text-slate-300">
-            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> Supports JPG & PNG (up to 5MB)</li>
-            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> Auto-detects Categories</li>
-            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> Error-free numeric extraction</li>
+            <li className="flex items-center gap-2"><span className="text-red-400">✓</span> Supports JPG & PNG (up to 5MB)</li>
+            <li className="flex items-center gap-2"><span className="text-red-400">✓</span> Auto-detects Categories</li>
+            <li className="flex items-center gap-2"><span className="text-red-400">✓</span> Error-free numeric extraction</li>
           </ul>
         </div>
 
-        <div className="glass-card p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] group relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 md:w-32 h-24 md:h-32 bg-purple-500/10 blur-3xl rounded-full group-hover:bg-purple-500/20 transition-all"></div>
-          <div className="w-14 h-14 md:w-16 md:h-16 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 border border-purple-500/20 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(168,85,247,0.2)]">🤖</div>
+        <div className="bg-[#050B14]/60 backdrop-blur-xl border border-cyan-500/20 hover:border-cyan-500/50 p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] group transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+          <div className="w-14 h-14 md:w-16 md:h-16 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 group-hover:bg-cyan-500 group-hover:text-white transition-all">🤖</div>
           <h3 className="text-2xl md:text-3xl font-black mb-3 md:mb-4 text-white">Conversational AI Chatbot</h3>
           <p className="text-slate-400 font-medium text-sm md:text-base leading-relaxed mb-4 md:mb-6">Talk to your data naturally. Our integrated AI analyzes your entire database to answer specific queries instantly. It's like having a financial advisor in your pocket.</p>
           <ul className="space-y-2 text-xs md:text-sm font-bold text-slate-300">
-            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> "How much did I spend on cabs?"</li>
-            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> "What is my highest category?"</li>
-            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> Dynamic Monthly Reports</li>
+            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> "How much did I spend on cabs?"</li>
+            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> "What is my highest category?"</li>
+            <li className="flex items-center gap-2"><span className="text-cyan-400">✓</span> Dynamic Monthly Reports</li>
+          </ul>
+        </div>
+
+        <div className="bg-[#050B14]/60 backdrop-blur-xl border border-purple-500/20 hover:border-purple-500/50 p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] group transition-all shadow-[0_0_15px_rgba(168,85,247,0.1)]">
+          <div className="w-14 h-14 md:w-16 md:h-16 bg-purple-500/10 text-purple-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 group-hover:bg-purple-500 group-hover:text-white transition-all">📈</div>
+          <h3 className="text-2xl md:text-3xl font-black mb-3 md:mb-4 text-white">Visual Analytics</h3>
+          <p className="text-slate-400 font-medium text-sm md:text-base leading-relaxed mb-4 md:mb-6">Understand your cash flow at a glance. We provide real-time beautiful pie charts and an intuitive budget tracker to keep you within your limits.</p>
+          <ul className="space-y-2 text-xs md:text-sm font-bold text-slate-300">
+            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> Category-wise breakdowns</li>
+            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> Dynamic Progress Bars</li>
+            <li className="flex items-center gap-2"><span className="text-purple-400">✓</span> Warning indicators for overspending</li>
+          </ul>
+        </div>
+
+        <div className="bg-[#050B14]/60 backdrop-blur-xl border border-blue-500/20 hover:border-blue-500/50 p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] group transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]">
+          <div className="w-14 h-14 md:w-16 md:h-16 bg-blue-500/10 text-blue-400 rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 md:mb-6 group-hover:bg-blue-500 group-hover:text-white transition-all">🔐</div>
+          <h3 className="text-2xl md:text-3xl font-black mb-3 md:mb-4 text-white">Secure Cloud Storage</h3>
+          <p className="text-slate-400 font-medium text-sm md:text-base leading-relaxed mb-4 md:mb-6">Your data belongs to you. Every expense is securely encrypted and stored in a private PostgreSQL database, accessible only via your secure login.</p>
+          <ul className="space-y-2 text-xs md:text-sm font-bold text-slate-300">
+            <li className="flex items-center gap-2"><span className="text-blue-400">✓</span> Enterprise-grade PostgreSQL</li>
+            <li className="flex items-center gap-2"><span className="text-blue-400">✓</span> One-Click CSV Export</li>
+            <li className="flex items-center gap-2"><span className="text-blue-400">✓</span> Family Sharing capabilities</li>
           </ul>
         </div>
       </div>
@@ -309,9 +302,6 @@ const FeaturesPage = () => {
   );
 };
 
-// =====================================
-// 🔐 PAGE 3: AUTH PAGE
-// =====================================
 const AuthPage = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -363,9 +353,6 @@ const AuthPage = ({ setUser }) => {
   );
 };
 
-// =====================================
-// 📄 PROTECTED PAGE: DASHBOARD (WITH VOICE ADD FEATURE)
-// =====================================
 const Dashboard = ({ user, history, fetchHistory }) => {
   const [form, setForm] = useState({ amount: "", category: "Food", description: "", date: "" });
   const [budget, setBudget] = useState(() => Number(localStorage.getItem("userBudget")) || 10000);
@@ -454,7 +441,9 @@ const Dashboard = ({ user, history, fetchHistory }) => {
         title: 'My SpendIO Update',
         text: `Hey! I have tracked ₹${totalExpenses} out of my ₹${budget} budget this month using SpendIO.`,
       }).catch(console.error);
-    } else { alert("Sharing is not supported on this device."); }
+    } else {
+      alert("Sharing is not supported on this device.");
+    }
   };
 
   const totalExpenses = history.reduce((sum, item) => sum + Number(item.amount), 0);
@@ -469,7 +458,6 @@ const Dashboard = ({ user, history, fetchHistory }) => {
   return (
     <div className="grid lg:grid-cols-3 gap-6 md:gap-8 animate-fade-up">
       <div className="lg:col-span-1">
-        {/* Changed from sticky top-28 to static on mobile, sticky on lg */}
         <div className="glass-card p-5 md:p-8 rounded-[1.5rem] md:rounded-[2rem] static lg:sticky lg:top-28">
           <h2 className="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center justify-between text-white">
             <div className="flex items-center gap-2 md:gap-3">
@@ -477,7 +465,13 @@ const Dashboard = ({ user, history, fetchHistory }) => {
               <span>{editingId ? "Edit Expense" : "Add Expense"}</span>
             </div>
             
-            <button type="button" onClick={handleVoiceInput} disabled={isListening || isProcessingVoice} className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-xl transition-all border ${isListening ? 'bg-red-500 text-white animate-pulse border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.6)]' : isProcessingVoice ? 'bg-cyan-500 text-black border-cyan-500' : 'bg-white/10 text-cyan-400 hover:bg-cyan-500 hover:text-black border-white/20'}`} title="Click & Speak">
+            <button 
+              type="button" 
+              onClick={handleVoiceInput} 
+              disabled={isListening || isProcessingVoice} 
+              className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-xl transition-all border ${isListening ? 'bg-red-500 text-white animate-pulse border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.6)]' : isProcessingVoice ? 'bg-cyan-500 text-black border-cyan-500' : 'bg-white/10 text-cyan-400 hover:bg-cyan-500 hover:text-black border-white/20'}`} 
+              title="Click & Speak"
+            >
               {isProcessingVoice ? '⏳' : '🎙️'}
             </button>
           </h2>
@@ -571,9 +565,6 @@ const Dashboard = ({ user, history, fetchHistory }) => {
   );
 };
 
-// =====================================
-// 📄 PROTECTED PAGE: SCAN BILL
-// =====================================
 const ScanPage = ({ user, fetchHistory }) => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -635,9 +626,6 @@ const ScanPage = ({ user, fetchHistory }) => {
   );
 };
 
-// =====================================
-// 📄 PROTECTED PAGE: AI ADVISOR (WITH FORECASTING)
-// =====================================
 const AiPage = ({ user, history }) => {
   const [insights, setInsights] = useState(null);
   const [chat, setChat] = useState("");
@@ -775,9 +763,6 @@ const AiPage = ({ user, history }) => {
   );
 };
 
-// =====================================
-// 📄 PROTECTED PAGE: PROFILE
-// =====================================
 const ProfilePage = ({ user, setUser, history, handleLogout }) => {
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
@@ -845,9 +830,6 @@ const ProfilePage = ({ user, setUser, history, handleLogout }) => {
   );
 };
 
-// =====================================
-// 📄 PUBLIC PAGE: FAQ
-// =====================================
 const FaqPage = () => {
   const faqs = [
     { q: "How does the AI Scanner work?", a: "It uses Google Gemini Vision to read your uploaded physical receipts and automatically extracts the amount and category." },
